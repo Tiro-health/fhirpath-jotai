@@ -14,7 +14,7 @@
   "dependencies": {
     "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",
-    "fhirpath": "^3.15.2",
+    "fhirpath": "Tiro-health/fhirpath.js#main",
     "jotai": "^2.10.4",
     "jotai-devtools": "^0.10.1",
     "react": "^18.3.1",
