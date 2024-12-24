@@ -3,10 +3,15 @@
 
 Ever wanted to make your FHIRPath expressions reactive? Now you can! This library provides a way to use FHIRPath expressions in a reactive way using Jotai.
 
+> [!IMPORTANT]  
+> This is repository is still in a very early stage and not available for public yet. 📢 Stay tuned for more info. 👋 Reach out if you'd like to help.
+
+<!--
 ## Installation
 ```bash
 npm install fhirpath-jotai
 ```
+-->
 
 ## Usage
 
