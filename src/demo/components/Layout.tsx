@@ -1,7 +1,7 @@
 import { Outlet } from "react-router";
 import navigation from "../navigation";
 import { NavLink } from "react-router";
-import Logo from "../../logo";
+import Logo from "../../Logo";
 
 function classNames(...classes: (string | boolean | undefined)[]) {
   return classes.filter(Boolean).join(" ");
