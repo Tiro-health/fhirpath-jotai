@@ -65,11 +65,3 @@ export default function expressionAtom<
     return result as TResult;
   });
 }
-
-export function useExpressionAtom(
-  atom: Atom<unknown>,
-  expression: string | Path,
-  context: ContextAtoms,
-  model?: Model,
-  options?: OptionVariants | undefined,
-) {}
