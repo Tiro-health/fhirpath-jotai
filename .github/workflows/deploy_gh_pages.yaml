@@ -26,6 +26,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     needs: test
+    defaults:
+      run:
+        working-directory: ./demo
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.7
@@ -40,15 +43,13 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: pnpm install
-        working-directory: ./demo
       - name: Build project
         run: pnpm build
-        working-directory: ./demo
       - name: Upload production-ready build files
         uses: actions/upload-pages-artifact@v3
         with:
           name: github-pages
-          path: ./demo/dist
+          path: ./dist
 
   deploy:
     needs: build
