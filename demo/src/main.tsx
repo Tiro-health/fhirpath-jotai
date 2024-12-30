@@ -10,7 +10,7 @@ import { Home } from "./components/Home";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/fhirpath-jotai">
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
