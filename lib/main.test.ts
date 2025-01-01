@@ -18,7 +18,7 @@ test("if sum is updated when updating operands", () => {
   expect(store.get(resultAtom)).toStrictEqual([3]);
 });
 
-test("if multiple linked expressions", () => {
+test("if multiple linked expressions are resolved", () => {
   const store = createStore();
   const context: Record<string, Atom<unknown>> = {};
   context["a"] = expressionAtom(undefined, "1", context);

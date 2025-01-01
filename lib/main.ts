@@ -7,19 +7,14 @@ export type Context = Record<string | symbol, unknown> & {
   __atoms: ContextAtoms;
 };
 
-const createProxyHandler = (get: Getter): ProxyHandler<Context> => ({
+const createVarsProxyHandler = (get: Getter): ProxyHandler<Context> => ({
   get(target, key: string) {
     if (key in target.__deleted) return undefined;
     if (key in target.__atoms) return get(target.__atoms[key]);
-    return key in target ? target[key] : undefined;
-  },
-  set(target, p, newValue) {
-    if (p in target.__atoms) return false;
-    target[p] = newValue;
-    return true;
+    return undefined;
   },
   has(target, p) {
-    return (p in target || p in target.__atoms) && !(p in target.__deleted);
+    return p in target.__atoms && !(p in target.__deleted);
   },
   deleteProperty(target, p) {
     if (p in target) {
@@ -39,10 +34,10 @@ const createProxyContext = (context: ContextAtoms) => ({
 });
 
 export default function expressionAtom<
-  TFHIRData,
   TResult extends unknown[] | Promise<unknown[]> =
     | unknown[]
     | Promise<unknown[]>,
+  TFHIRData extends Record<string, unknown> = Record<string, unknown>,
 >(
   fhirData: Atom<TFHIRData> | undefined,
   expression: string | Path,
@@ -53,10 +48,10 @@ export default function expressionAtom<
   return atom((get) => {
     const contextProxy: Context | undefined =
       context != undefined
-        ? new Proxy(createProxyContext(context), createProxyHandler(get))
+        ? new Proxy(createProxyContext(context), createVarsProxyHandler(get))
         : undefined;
     const result = evaluate(
-      fhirData && get(fhirData),
+      fhirData ? get(fhirData) : undefined,
       expression,
       contextProxy,
       model,

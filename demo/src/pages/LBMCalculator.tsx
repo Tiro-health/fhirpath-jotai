@@ -2,14 +2,14 @@ import { atom } from "jotai";
 import expressionAtom from "../../../lib/main";
 import { DevTools } from "jotai-devtools";
 import "jotai-devtools/styles.css";
-import NumberField from "../components/NumberField";
-import Result from "../components/Result";
-import SelectField from "../components/SelectField";
+import NumberInputAtom from "../components/NumberInputAtom";
+import ResultAtom from "../components/ResultAtom";
+import SelectAtom from "../components/SelectAtom";
 
 const heightAtom = atom(1.75);
 const weightAtom = atom(65);
 const genderAtom = atom<string>("female");
-const lbmAtom = expressionAtom<undefined, number[]>(
+const lbmAtom = expressionAtom<number[]>(
   undefined,
   // the James formula
   "iif(%gender = 'male', 1.1 * %weight - 128 * (%weight / %height).power(2), iif(%gender = 'female', 1.07 * %weight - 148 * (%weight / %height).power(2), {}))",
@@ -27,7 +27,7 @@ lbmAtom.debugLabel = "%lbm";
 
 export function LBMCalculator() {
   return (
-    <div className="flex flex-col p-4 min-w-96 w-fit">
+    <div className="flex flex-col p-4 min-w-fit w-full max-w-screen-sm">
       <form className="space-y-4">
         <dl className="flex flex-col">
           <dt className="text-sm font-medium text-gray-700">
@@ -51,13 +51,13 @@ export function LBMCalculator() {
             </code>
           </dd>
         </dl>
-        <NumberField label="%height" atom={heightAtom} />
-        <NumberField label="%weight" atom={weightAtom} />
-        <SelectField label="%gender" atom={genderAtom}>
+        <NumberInputAtom label="%height" atom={heightAtom} />
+        <NumberInputAtom label="%weight" atom={weightAtom} />
+        <SelectAtom label="%gender" atom={genderAtom}>
           <option value="male">male</option>
           <option value="female">female</option>
-        </SelectField>
-        <Result label="%lbm" atom={lbmAtom} />
+        </SelectAtom>
+        <ResultAtom label="%lbm" atom={lbmAtom} />
       </form>
       <DevTools position="top-right" isInitialOpen />
     </div>

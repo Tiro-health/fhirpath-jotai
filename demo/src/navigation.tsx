@@ -4,4 +4,12 @@ export default [
     name: "LBM-calculator",
     href: "/lbm",
   },
+  {
+    name: "BMI-Questionnaire 🚧",
+    href: "/bmi-questionnaire",
+  },
+  {
+    name: "TNM-Questionnaire 🚧",
+    href: "/tnm-questionnaire",
+  },
 ];
