@@ -2,7 +2,6 @@ import { Outlet } from "react-router";
 import navigation from "../navigation";
 import { NavLink } from "react-router";
 import Logo from "../Logo";
-import React from "react";
 
 function classNames(...classes: (string | boolean | undefined)[]) {
   return classes.filter(Boolean).join(" ");
