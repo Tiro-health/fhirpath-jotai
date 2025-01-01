@@ -5,10 +5,10 @@ import { BrowserRouter, Route, Routes } from "react-router";
 
 import { BMICalculator } from "./pages/BMICalculator";
 import { LBMCalculator } from "./pages/LBMCalculator";
-import Layout from "./components/Layout";
-import { Home } from "./components/Home";
 import { BMIQuestionnaire } from "./pages/BMIQuestionnaire";
 import { TNMQuestionnaire } from "./pages/TNMQuestionnaire";
+import { Home } from "./pages/Home";
+import Layout from "./components/Layout";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
