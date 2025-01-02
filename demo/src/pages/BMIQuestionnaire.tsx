@@ -1,4 +1,5 @@
-import { atom } from "jotai";
+import { useCallback } from "react";
+import { atom, useSetAtom } from "jotai";
 import expressionAtom from "../../../lib/main";
 import ResultAtom from "../components/ResultAtom";
 import * as model from "fhirpath/fhir-context/r5";
@@ -11,7 +12,6 @@ const qrAtom = atom({
   item: [
     {
       linkId: "height",
-      text: "What is your height?",
       answer: [
         {
           valueDecimal: 1.8,
@@ -20,7 +20,6 @@ const qrAtom = atom({
     },
     {
       linkId: "weight",
-      text: "What is your weight?",
       answer: [
         {
           valueDecimal: 80,
@@ -63,7 +62,9 @@ export function BMIQuestionnaire() {
       <p className="text-lg text-gray-700 font-medium">
         🚧 This example is under construction.
       </p>
-      <form className="space-y-4">
+      <BMIForm qrAtom={qrAtom} />
+      <form className="mt-4 space-y-4">
+        <ResultAtom label="Calculated result" atom={bmiAtom} />
         <FHIRAtom label="QuestionnaireResponse" atom={qrAtom} />
         <dl className="flex flex-col">
           <dt className="text-sm font-medium text-gray-700">
@@ -89,9 +90,66 @@ export function BMIQuestionnaire() {
             <code>%weight / (%height * %height)</code>
           </dd>
         </dl>
-        <ResultAtom label="Calculated result" atom={bmiAtom} />
       </form>
       <DevTools position="top-right" isInitialOpen />
     </div>
+  );
+}
+
+function BMIForm({ qrAtom }: { qrAtom: PrimitiveAtom<QuestionnaireResponse> }) {
+  const setQr = useSetAtom(qrAtom);
+
+  // Sync formstate with atom
+  const handleFormInput = useCallback(
+    (event: React.FormEvent<HTMLFormElement>) => {
+      const formData = new FormData(event.currentTarget);
+      const changedInputName = event.target
+        ? (event.target as HTMLInputElement).name
+        : null;
+      setQr((prev) => {
+        const next: QuestionnaireResponse = {
+          ...prev,
+          item: prev.item.map((item) => {
+            if (item.linkId === changedInputName) {
+              const valueDecimal = parseFloat(formData.get(changedInputName));
+              return {
+                ...item,
+                answer: [{ valueDecimal }],
+              };
+            }
+            return item;
+          }),
+        };
+        return next;
+      });
+    },
+    [setQr],
+  );
+
+  return (
+    <form
+      onInput={handleFormInput}
+      className="border border-gray-300 p-4 rounded-md space-y-4"
+    >
+      <div>
+        <label className="text-lg font-medium">height</label>
+        <input
+          type="number"
+          name="height"
+          defaultValue="1.8"
+          step="0.01"
+          className="p-2 border border-gray-300 rounded-md mx-2"
+        />
+      </div>
+      <div>
+        <label className="text-lg font-medium">weight</label>
+        <input
+          type="number"
+          name="weight"
+          defaultValue="80"
+          className="p-2 border border-gray-300 rounded-md mx-2"
+        />
+      </div>
+    </form>
   );
 }

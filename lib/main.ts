@@ -2,34 +2,21 @@ import { evaluate, Model, OptionVariants, Path } from "fhirpath";
 import { atom, Atom, Getter } from "jotai";
 
 export type ContextAtoms = Record<string | symbol, Atom<unknown>>;
-export type Context = Record<string | symbol, unknown> & {
-  __deleted: (string | symbol)[];
+export type Context = {
   __atoms: ContextAtoms;
 };
 
 const createVarsProxyHandler = (get: Getter): ProxyHandler<Context> => ({
   get(target, key: string) {
-    if (key in target.__deleted) return undefined;
     if (key in target.__atoms) return get(target.__atoms[key]);
     return undefined;
   },
   has(target, p) {
-    return p in target.__atoms && !(p in target.__deleted);
-  },
-  deleteProperty(target, p) {
-    if (p in target) {
-      delete target[p];
-      return true;
-    } else if (p in target.__atoms) {
-      target.__deleted.push(p);
-      return true;
-    }
-    return false;
+    return p in target.__atoms;
   },
 });
 
 const createProxyContext = (context: ContextAtoms) => ({
-  __deleted: [],
   __atoms: context,
 });
 

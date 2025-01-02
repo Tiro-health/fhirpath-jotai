@@ -167,6 +167,7 @@ export function TNMQuestionnaire() {
       </p>
       <TNMForm qrAtom={qrAtom} />
       <form className="space-y-4">
+        <ResultAtom label="Calculated result" atom={stageAtom} />
         <FHIRAtom label="QuestionnaireResponse" atom={qrAtom} />
         <dl className="flex flex-col">
           <dt className="text-sm font-medium text-gray-700">
@@ -194,33 +195,57 @@ export function TNMQuestionnaire() {
             </code>
           </dd>
           <dt className="mt-2 text-sm font-medium text-gray-700">
+            Variable: <code>%isIVA</code>
+          </dt>
+          <dd className="text-sm text-gray-700 rounded-lg border border-gray-300 bg-gray-50 p-2">
+            <code>%m = 'm1a' or %m = 'm1b'</code>
+          </dd>
+
+          <dt className="mt-2 text-sm font-medium text-gray-700">
+            Variable: <code>%isIVB</code>
+          </dt>
+          <dd className="text-sm text-gray-700 rounded-lg border border-gray-300 bg-gray-50 p-2">
+            <code>%m = 'm1c1' or %m = 'm1c2'</code>
+          </dd>
+
+          <dt className="mt-2 text-sm font-medium text-gray-700">
+            Variable: <code>%isIIIC</code>
+          </dt>
+          <dd className="text-sm text-gray-700 rounded-lg border border-gray-300 bg-gray-50 p-2">
+            <code>%n = 'n3' and (%t = 't3' or %t = 't4')</code>
+          </dd>
+
+          <dt className="mt-2 text-sm font-medium text-gray-700">
+            Variable: <code>%isIIIB</code>
+          </dt>
+          <dd className="text-sm text-gray-700 rounded-lg border border-gray-300 bg-gray-50 p-2">
+            <code>
+              (%n = 'n3' and (%t = 't3' or %t = 't4').not()) or (%n = 'n2b' and
+              (%t = 't1a' or %t = 't1b' or %t = 't1c').not()) or (%n = 'n2a' and
+              %t = 't4')
+            </code>
+          </dd>
+
+          <dt className="mt-2 text-sm font-medium text-gray-700">
+            Variable: <code>%isIIIA</code>
+          </dt>
+          <dd className="text-sm text-gray-700 rounded-lg border border-gray-300 bg-gray-50 p-2">
+            <code>
+              (%n = 'n2b' and (%t = 't1a' or %t = 't1b' or %t = 't1c')) or (%n =
+              'n1' and (%t = 't3' or %t = 't4').not())
+            </code>
+          </dd>
+          <dt className="mt-2 text-sm font-medium text-gray-700">
             Calculated Expression:
           </dt>
           <dd className="text-sm text-gray-700 rounded-lg border border-gray-300 bg-gray-50 p-2">
             <code>
-              iif(%m = 'm1a' or %m = 'm1b', 'stage IVA', <br />
-              iif(%m = 'm1c1' or %m = 'm1c2', 'stage IVB', <br />
-              iif(%n = 'n3', iif(%t = 't3' or %t = 't4', 'stage IIIB', 'stage
-              IIIC'), <br />
-              iif(%n = 'n2b', iif(%t = 't1a' or %t = 't1b' or %t = 't1c', 'stage
-              IIIA', 'stage IIIB'), <br />
-              iif(%n = 'n2a', iif(%t = 't4', 'stage IIIB', iif(%t = 't1a' or %t
-              = 't1b' or %t = 't1c', 'stage IIIB', 'stage IIA')), <br />
-              iif(%n = 'n1', iif(%t = 't3' or %t = 't4', 'stage IIIA', iif(%t =
-              't1a' or %t = 't1b' or %t = 't1c', 'stage IIA', 'stage IIB')),
-              <br />
-              iif(%n = 'n0' and %t = 't4', 'stage IIIA', <br />
-              iif(%n = 'n0' and %t = 't3', 'stage IIB', <br />
-              iif(%n = 'n0' and %t = 't2b', 'stage IIA', <br />
-              iif(%n = 'n0' and %t = 't2a', 'stage IB', <br />
-              iif(%n = 'n0' and %t = 't1c', 'stage IA3', <br />
-              iif(%n = 'n0' and %t = 't1b', 'stage IA2', <br />
-              iif(%n = 'n0' and %t = 't1a', 'stage IA1', <br />
-              {}))))))))))))
+              iif(%isIVA, 'stage IVA', iif(%isIVB, 'stage IVB', iif(%isIIIC,
+              'stage IIIC', iif(%isIIIB, 'stage IIIB', iif(%isIIIA, 'stage
+              IIIA', 'stage IIA')))))
             </code>
           </dd>
         </dl>
-        <ResultAtom label="Calculated result" atom={stageAtom} />
       </form>
       <DevTools position="top-right" isInitialOpen />
     </div>
