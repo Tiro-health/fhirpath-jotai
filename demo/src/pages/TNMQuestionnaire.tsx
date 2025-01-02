@@ -166,7 +166,7 @@ export function TNMQuestionnaire() {
         🚧 This example is under construction.
       </p>
       <TNMForm qrAtom={qrAtom} />
-      <form className="space-y-4">
+      <form className="mt-4 space-y-4">
         <ResultAtom label="Calculated result" atom={stageAtom} />
         <FHIRAtom label="QuestionnaireResponse" atom={qrAtom} />
         <dl className="flex flex-col">
@@ -287,8 +287,9 @@ function TNMForm({ qrAtom }: { qrAtom: PrimitiveAtom<QuestionnaireResponse> }) {
       onInput={handleFormInput}
       className="border border-gray-300 p-4 rounded-md space-y-4"
     >
+      <h2 className="text-lg font-medium">TNM Questionnaire</h2>
       <fieldset className="flex">
-        <legend className="text-lg font-medium block">TNM</legend>
+        <legend className="text-base font-medium block">TNM</legend>
         <div className="flex">
           <select
             name="T"

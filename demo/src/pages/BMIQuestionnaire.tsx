@@ -131,8 +131,9 @@ function BMIForm({ qrAtom }: { qrAtom: PrimitiveAtom<QuestionnaireResponse> }) {
       onInput={handleFormInput}
       className="border border-gray-300 p-4 rounded-md space-y-4"
     >
+      <h2 className="text-lg font-medium">BMI Questionnaire</h2>
       <div>
-        <label className="text-lg font-medium">height</label>
+        <label className="text-base font-medium">height</label>
         <input
           type="number"
           name="height"
@@ -142,7 +143,7 @@ function BMIForm({ qrAtom }: { qrAtom: PrimitiveAtom<QuestionnaireResponse> }) {
         />
       </div>
       <div>
-        <label className="text-lg font-medium">weight</label>
+        <label className="text-base font-medium">weight</label>
         <input
           type="number"
           name="weight"
