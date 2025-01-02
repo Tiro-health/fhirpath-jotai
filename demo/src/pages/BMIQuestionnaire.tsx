@@ -1,12 +1,21 @@
 import { useCallback } from "react";
-import { atom, useSetAtom } from "jotai";
+import { atom, useSetAtom, PrimitiveAtom } from "jotai";
 import expressionAtom from "../../../lib/main";
 import ResultAtom from "../components/ResultAtom";
 import * as model from "fhirpath/fhir-context/r5";
 import FHIRAtom from "../components/FHIRAtom";
 import { DevTools } from "jotai-devtools";
-
-const qrAtom = atom({
+type QuestionnaireResponse = {
+  resourceType: "QuestionnaireResponse";
+  status: "in-progress";
+  item: {
+    linkId: string;
+    answer: {
+      valueDecimal: number;
+    }[];
+  }[];
+};
+const qrAtom = atom<QuestionnaireResponse>({
   resourceType: "QuestionnaireResponse",
   status: "in-progress",
   item: [
@@ -110,8 +119,10 @@ function BMIForm({ qrAtom }: { qrAtom: PrimitiveAtom<QuestionnaireResponse> }) {
         const next: QuestionnaireResponse = {
           ...prev,
           item: prev.item.map((item) => {
-            if (item.linkId === changedInputName) {
-              const valueDecimal = parseFloat(formData.get(changedInputName));
+            if (item.linkId === changedInputName && changedInputName) {
+              const formValue = formData.get(changedInputName);
+              console.assert(formValue !== null);
+              const valueDecimal = parseFloat(formValue as string);
               return {
                 ...item,
                 answer: [{ valueDecimal }],
