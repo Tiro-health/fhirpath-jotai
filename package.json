@@ -1,6 +1,6 @@
 {
   "name": "fhirpath-jotai",
-  "version": "0.0.0",
+  "version": "0.0.4",
   "type": "module",
   "scripts": {
     "dev": "vite",
