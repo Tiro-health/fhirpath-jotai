@@ -8,7 +8,8 @@
     "ci:publish": "pnpm publish -r",
     "preview": "vite preview",
     "lint": "eslint .",
-    "test": "vitest"
+    "test": "vitest",
+    "postversion": "git push --follow-tags"
   },
   "dependencies": {
     "fhirpath": "Tiro-health/fhirpath.js#master",
