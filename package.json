@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "ci:publish": "pnpm publish -r",
     "preview": "vite preview",
     "lint": "eslint .",
     "test": "vitest"
@@ -16,6 +17,7 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.27.11",
     "@eslint/js": "^9.17.0",
     "@types/node": "^22.10.2",
     "@types/react": "^18.3.17",
