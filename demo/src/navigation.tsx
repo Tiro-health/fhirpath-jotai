@@ -12,4 +12,8 @@ export default [
     name: "TNM-Questionnaire 🚧",
     href: "/tnm-questionnaire",
   },
+  {
+    name: "SESCD-Questionnaire 🚧",
+    href: "/sescd-questionnaire",
+  },
 ];

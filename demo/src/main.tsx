@@ -9,6 +9,7 @@ import { BMIQuestionnaire } from "./pages/BMIQuestionnaire";
 import { TNMQuestionnaire } from "./pages/TNMQuestionnaire";
 import { Home } from "./pages/Home";
 import Layout from "./components/Layout";
+import { SESCDQuestionnaire } from "./pages/SESCDQuestionnaire";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -20,8 +21,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path="lbm" element={<LBMCalculator />} />
           <Route path="bmi-questionnaire" element={<BMIQuestionnaire />} />
           <Route path="tnm-questionnaire" element={<TNMQuestionnaire />} />
+          <Route path="sescd-questionnaire" element={<SESCDQuestionnaire />} />
         </Route>
       </Routes>
     </BrowserRouter>
-  </React.StrictMode>,
+  </React.StrictMode>
 );
