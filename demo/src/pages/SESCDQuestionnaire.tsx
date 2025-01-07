@@ -359,7 +359,7 @@ function SESCDForm({
       onInput={handleFormInput}
       className="border border-gray-300 p-4 rounded-md space-y-4"
     >
-      <h2 className="text-lg font-medium">TNM Questionnaire</h2>
+      <h2 className="text-lg font-medium">SES-CD Questionnaire</h2>
       <fieldset className="block">
         <legend className="text-sm font-medium text-gray-700">Rectum</legend>
         <div>
