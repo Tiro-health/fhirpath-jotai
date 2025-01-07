@@ -86,7 +86,7 @@ const TAtom = expressionAtom<number[]>(
   qrAtom,
   "QuestionnaireResponse.item.where(linkId = 'T').answer.value.code",
   {},
-  model,
+  model
 );
 TAtom.debugLabel = "%T";
 
@@ -94,7 +94,7 @@ const NAtom = expressionAtom<number[]>(
   qrAtom,
   "QuestionnaireResponse.item.where(linkId = 'N').answer.value.code",
   {},
-  model,
+  model
 );
 NAtom.debugLabel = "%N";
 
@@ -102,7 +102,7 @@ const MAtom = expressionAtom<number[]>(
   qrAtom,
   "QuestionnaireResponse.item.where(linkId = 'M').answer.value.code",
   {},
-  model,
+  model
 );
 MAtom.debugLabel = "%M";
 
@@ -110,35 +110,35 @@ const isIVA = expressionAtom<[boolean]>(
   qrAtom,
   "%m = 'm1a' or %m = 'm1b'",
   { m: MAtom },
-  model,
+  model
 );
 isIVA.debugLabel = "%isIVA";
 const isIVB = expressionAtom<[boolean]>(
   qrAtom,
   "%m = 'm1c1' or %m = 'm1c2'",
   { m: MAtom },
-  model,
+  model
 );
 isIVB.debugLabel = "%isIVB";
 const isIIIC = expressionAtom<[boolean]>(
   qrAtom,
   "%n = 'n3' and (%t = 't3' or %t = 't4')",
   { n: NAtom, t: TAtom },
-  model,
+  model
 );
 isIIIC.debugLabel = "%isIIIC";
 const isIIIB = expressionAtom<[boolean]>(
   qrAtom,
   "(%n = 'n3' and (%t = 't3' or %t = 't4').not()) or (%n = 'n2b' and (%t = 't1a' or %t = 't1b' or %t = 't1c').not()) or (%n = 'n2a' and %t = 't4')",
   { n: NAtom, t: TAtom },
-  model,
+  model
 );
 isIIIB.debugLabel = "%isIIIB";
 const isIIIA = expressionAtom<[boolean]>(
   qrAtom,
   "(%n = 'n2b' and (%t = 't1a' or %t = 't1b' or %t = 't1c')) or (%n = 'n1' and (%t = 't3' or %t = 't4').not())",
   { n: NAtom, t: TAtom },
-  model,
+  model
 );
 isIIIA.debugLabel = "%isIIIA";
 
@@ -155,7 +155,7 @@ const stageAtom = expressionAtom<[string]>(
     isIIIB,
     isIIIA,
   },
-  model,
+  model
 );
 stageAtom.debugLabel = "%stage";
 
@@ -279,7 +279,7 @@ function TNMForm({ qrAtom }: { qrAtom: PrimitiveAtom<QuestionnaireResponse> }) {
         return next;
       });
     },
-    [setQr],
+    [setQr]
   );
 
   return (
@@ -288,6 +288,13 @@ function TNMForm({ qrAtom }: { qrAtom: PrimitiveAtom<QuestionnaireResponse> }) {
       className="border border-gray-300 p-4 rounded-md space-y-4"
     >
       <h2 className="text-lg font-medium">TNM Questionnaire</h2>
+      <p>
+        {" "}
+        Source:{" "}
+        <a href="https://memoinoncology.com/wp-content/uploads/2023/10/WCLC_2023_TNM-Classification_1-600x527.png">
+          TNM Classification lung cancer
+        </a>
+      </p>
       <fieldset className="flex">
         <legend className="text-base font-medium block">TNM</legend>
         <div className="flex">
