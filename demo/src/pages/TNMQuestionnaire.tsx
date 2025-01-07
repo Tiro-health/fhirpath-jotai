@@ -291,8 +291,8 @@ function TNMForm({ qrAtom }: { qrAtom: PrimitiveAtom<QuestionnaireResponse> }) {
       <p>
         {" "}
         Source:{" "}
-        <a href="https://memoinoncology.com/wp-content/uploads/2023/10/WCLC_2023_TNM-Classification_1-600x527.png">
-          TNM Classification lung cancer
+        <a href="https://memoinoncology.com/wclc-2023/proposals-for-the-9th-edition-of-the-tnm-classification/">
+          TNM Classification Lung Cancer 9th edition
         </a>
       </p>
       <fieldset className="flex">
