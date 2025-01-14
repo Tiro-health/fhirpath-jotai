@@ -108,7 +108,7 @@ MAtom.debugLabel = "%M";
 
 const isIVA = expressionAtom<[boolean]>(
   qrAtom,
-  "%m = 'm1a' or %m = 'm1b'",
+  "iif(%m = 'm1a' or %m = 'm1b', 'IVA', {})",
   { m: MAtom },
   model
 );

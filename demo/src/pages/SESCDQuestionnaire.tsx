@@ -380,10 +380,10 @@ function SESCDForm({
               name="rectum/sizeofulcers"
               className="block p-2 border border-gray-300 rounded-md mr-2"
             >
-              <option value="none">None</option>
-              <option value="aphthousulcers">Aphthous ulcers</option>
-              <option value="largeulcers">Large ulcers</option>
-              <option value="verylargeulcers">Very large ulcers</option>
+              <option value="none">None (0)</option>
+              <option value="aphthousulcers">Aphthous ulcers (1)</option>
+              <option value="largeulcers">Large ulcers (2)</option>
+              <option value="verylargeulcers">Very large ulcers (3)</option>
             </select>
           </div>
           <div>
@@ -394,10 +394,10 @@ function SESCDForm({
               name="rectum/ulceratedsurface"
               className="block p-2 border border-gray-300 rounded-md mr-2"
             >
-              <option value="none">None</option>
-              <option value="<10%">{"<10%"}</option>
-              <option value="10-30%">10-30%</option>
-              <option value=">30%">30%</option>
+              <option value="none">None (0)</option>
+              <option value="<10%">{"<10%"} (1)</option>
+              <option value="10-30%">10-30% (2)</option>
+              <option value=">30%">30% (3)</option>
             </select>
           </div>
           <div>
@@ -408,10 +408,12 @@ function SESCDForm({
               name="rectum/affectedsurface"
               className="block p-2 border border-gray-300 rounded-md"
             >
-              <option value="unaffectedsegments">Unaffected segments</option>
-              <option value="<50%">{"<50%"}</option>
-              <option value="50%-75%">50%-75%</option>
-              <option value=">75%">75%</option>
+              <option value="unaffectedsegments">
+                Unaffected segments (0)
+              </option>
+              <option value="<50%">{"<50%"} (1)</option>
+              <option value="50%-75%">50%-75% (2)</option>
+              <option value=">75%">75% (3)</option>
             </select>
           </div>
           <div>
@@ -422,10 +424,10 @@ function SESCDForm({
               name="rectum/presenceofnarrowing"
               className="block p-2 border border-gray-300 rounded-md"
             >
-              <option value="none">None</option>
-              <option value="single">Single can be passed</option>
-              <option value="multiple">Multiple can be passed</option>
-              <option value="cannot">Cannot be passed</option>
+              <option value="none">None (0)</option>
+              <option value="single">Single can be passed (1)</option>
+              <option value="multiple">Multiple can be passed (2)</option>
+              <option value="cannot">Cannot be passed (3)</option>
             </select>
           </div>
         </fieldset>
@@ -441,10 +443,10 @@ function SESCDForm({
               name="sigmoidleftcolon/sizeofulcers"
               className="block p-2 border border-gray-300 rounded-md mr-2"
             >
-              <option value="none">None</option>
-              <option value="aphthousulcers">Aphthous ulcers</option>
-              <option value="largeulcers">Large ulcers</option>
-              <option value="verylargeulcers">Very large ulcers</option>
+              <option value="none">None (0)</option>
+              <option value="aphthousulcers">Aphthous ulcers (1)</option>
+              <option value="largeulcers">Large ulcers (2)</option>
+              <option value="verylargeulcers">Very large ulcers (3)</option>
             </select>
           </div>
           <div>
@@ -455,10 +457,10 @@ function SESCDForm({
               name="sigmoidleftcolon/ulceratedsurface"
               className="block p-2 border border-gray-300 rounded-md mr-2"
             >
-              <option value="none">None</option>
-              <option value="<10%">{"<10%"}</option>
-              <option value="10-30%">10-30%</option>
-              <option value=">30%">30%</option>
+              <option value="none">None (0)</option>
+              <option value="<10%">{"<10%"} (1)</option>
+              <option value="10-30%">10-30% (2)</option>
+              <option value=">30%">30% (3)</option>
             </select>
           </div>
           <div>
@@ -469,10 +471,12 @@ function SESCDForm({
               name="sigmoidleftcolon/affectedsurface"
               className="block p-2 border border-gray-300 rounded-md"
             >
-              <option value="unaffectedsegments">Unaffected segments</option>
-              <option value="<50%">{"<50%"}</option>
-              <option value="50%-75%">50%-75%</option>
-              <option value=">75%">75%</option>
+              <option value="unaffectedsegments">
+                Unaffected segments (0)
+              </option>
+              <option value="<50%">{"<50%"} (1)</option>
+              <option value="50%-75%">50%-75% (2)</option>
+              <option value=">75%">75% (3)</option>
             </select>
           </div>
           <div>
@@ -483,10 +487,10 @@ function SESCDForm({
               name="sigmoidleftcolon/presenceofnarrowing"
               className="block p-2 border border-gray-300 rounded-md"
             >
-              <option value="none">None</option>
-              <option value="single">Single can be passed</option>
-              <option value="multiple">Multiple can be passed</option>
-              <option value="cannot">Cannot be passed</option>
+              <option value="none">None (0)</option>
+              <option value="single">Single can be passed (1)</option>
+              <option value="multiple">Multiple can be passed (2)</option>
+              <option value="cannot">Cannot be passed (3)</option>
             </select>
           </div>
         </fieldset>
@@ -502,10 +506,10 @@ function SESCDForm({
               name="traversecolon/sizeofulcers"
               className="block p-2 border border-gray-300 rounded-md mr-2"
             >
-              <option value="none">None</option>
-              <option value="aphthousulcers">Aphthous ulcers</option>
-              <option value="largeulcers">Large ulcers</option>
-              <option value="verylargeulcers">Very large ulcers</option>
+              <option value="none">None (0)</option>
+              <option value="aphthousulcers">Aphthous ulcers (1)</option>
+              <option value="largeulcers">Large ulcers (2)</option>
+              <option value="verylargeulcers">Very large ulcers (3)</option>
             </select>
           </div>
           <div>
@@ -516,10 +520,10 @@ function SESCDForm({
               name="traversecolon/ulceratedsurface"
               className="block p-2 border border-gray-300 rounded-md mr-2"
             >
-              <option value="none">None</option>
-              <option value="<10%">{"<10%"}</option>
-              <option value="10-30%">10-30%</option>
-              <option value=">30%">30%</option>
+              <option value="none">None (0)</option>
+              <option value="<10%">{"<10%"} (1)</option>
+              <option value="10-30%">10-30% (2)</option>
+              <option value=">30%">30% (3)</option>
             </select>
           </div>
           <div>
@@ -530,10 +534,12 @@ function SESCDForm({
               name="traversecolon/affectedsurface"
               className="block p-2 border border-gray-300 rounded-md"
             >
-              <option value="unaffectedsegments">Unaffected segments</option>
-              <option value="<50%">{"<50%"}</option>
-              <option value="50%-75%">50%-75%</option>
-              <option value=">75%">75%</option>
+              <option value="unaffectedsegments">
+                Unaffected segments (0)
+              </option>
+              <option value="<50%">{"<50%"} (1)</option>
+              <option value="50%-75%">50%-75% (2)</option>
+              <option value=">75%">75% (3)</option>
             </select>
           </div>
           <div>
@@ -544,10 +550,10 @@ function SESCDForm({
               name="traversecolon/presenceofnarrowing"
               className="block p-2 border border-gray-300 rounded-md"
             >
-              <option value="none">None</option>
-              <option value="single">Single can be passed</option>
-              <option value="multiple">Multiple can be passed</option>
-              <option value="cannot">Cannot be passed</option>
+              <option value="none">None (0)</option>
+              <option value="single">Single can be passed (1)</option>
+              <option value="multiple">Multiple can be passed (2)</option>
+              <option value="cannot">Cannot be passed (3)</option>
             </select>
           </div>
         </fieldset>
@@ -563,10 +569,10 @@ function SESCDForm({
               name="rightcolon/sizeofulcers"
               className="block p-2 border border-gray-300 rounded-md mr-2"
             >
-              <option value="none">None</option>
-              <option value="aphthousulcers">Aphthous ulcers</option>
-              <option value="largeulcers">Large ulcers</option>
-              <option value="verylargeulcers">Very large ulcers</option>
+              <option value="none">None (0)</option>
+              <option value="aphthousulcers">Aphthous ulcers (1)</option>
+              <option value="largeulcers">Large ulcers (2)</option>
+              <option value="verylargeulcers">Very large ulcers (3)</option>
             </select>
           </div>
           <div>
@@ -577,10 +583,10 @@ function SESCDForm({
               name="rightcolon/ulceratedsurface"
               className="block p-2 border border-gray-300 rounded-md mr-2"
             >
-              <option value="none">None</option>
-              <option value="<10%">{"<10%"}</option>
-              <option value="10-30%">10-30%</option>
-              <option value=">30%">30%</option>
+              <option value="none">None (0)</option>
+              <option value="<10%">{"<10%"} (1)</option>
+              <option value="10-30%">10-30% (2)</option>
+              <option value=">30%">30% (3)</option>
             </select>
           </div>
           <div>
@@ -591,10 +597,12 @@ function SESCDForm({
               name="rightcolon/affectedsurface"
               className="block p-2 border border-gray-300 rounded-md"
             >
-              <option value="unaffectedsegments">Unaffected segments</option>
-              <option value="<50%">{"<50%"}</option>
-              <option value="50%-75%">50%-75%</option>
-              <option value=">75%">75%</option>
+              <option value="unaffectedsegments">
+                Unaffected segments (0)
+              </option>
+              <option value="<50%">{"<50%"} (1)</option>
+              <option value="50%-75%">50%-75% (2)</option>
+              <option value=">75%">75% (3)</option>
             </select>
           </div>
           <div>
@@ -605,10 +613,10 @@ function SESCDForm({
               name="rightcolon/presenceofnarrowing"
               className="block p-2 border border-gray-300 rounded-md"
             >
-              <option value="none">None</option>
-              <option value="single">Single can be passed</option>
-              <option value="multiple">Multiple can be passed</option>
-              <option value="cannot">Cannot be passed</option>
+              <option value="none">None (0)</option>
+              <option value="single">Single can be passed (1)</option>
+              <option value="multiple">Multiple can be passed (2)</option>
+              <option value="cannot">Cannot be passed (3)</option>
             </select>
           </div>
         </fieldset>
@@ -622,10 +630,10 @@ function SESCDForm({
               name="ileum/sizeofulcers"
               className="block p-2 border border-gray-300 rounded-md mr-2"
             >
-              <option value="none">None</option>
-              <option value="aphthousulcers">Aphthous ulcers</option>
-              <option value="largeulcers">Large ulcers</option>
-              <option value="verylargeulcers">Very large ulcers</option>
+              <option value="none">None (0)</option>
+              <option value="aphthousulcers">Aphthous ulcers (1)</option>
+              <option value="largeulcers">Large ulcers (2)</option>
+              <option value="verylargeulcers">Very large ulcers (3)</option>
             </select>
           </div>
           <div>
@@ -636,10 +644,10 @@ function SESCDForm({
               name="ileum/ulceratedsurface"
               className="block p-2 border border-gray-300 rounded-md mr-2"
             >
-              <option value="none">None</option>
-              <option value="<10%">{"<10%"}</option>
-              <option value="10-30%">10-30%</option>
-              <option value=">30%">30%</option>
+              <option value="none">None (0)</option>
+              <option value="<10%">{"<10%"} (1)</option>
+              <option value="10-30%">10-30% (2)</option>
+              <option value=">30%">30% (3)</option>
             </select>
           </div>
           <div>
@@ -650,10 +658,12 @@ function SESCDForm({
               name="ileum/affectedsurface"
               className="block p-2 border border-gray-300 rounded-md"
             >
-              <option value="unaffectedsegments">Unaffected segments</option>
-              <option value="<50%">{"<50%"}</option>
-              <option value="50%-75%">50%-75%</option>
-              <option value=">75%">75%</option>
+              <option value="unaffectedsegments">
+                Unaffected segments (0)
+              </option>
+              <option value="<50%">{"<50%"} (1)</option>
+              <option value="50%-75%">50%-75% (2)</option>
+              <option value=">75%">75% (3)</option>
             </select>
           </div>
           <div>
@@ -664,10 +674,10 @@ function SESCDForm({
               name="ileum/presenceofnarrowing"
               className="block p-2 border border-gray-300 rounded-md"
             >
-              <option value="none">None</option>
-              <option value="single">Single can be passed</option>
-              <option value="multiple">Multiple can be passed</option>
-              <option value="cannot">Cannot be passed</option>
+              <option value="none">None (0)</option>
+              <option value="single">Single can be passed (1)</option>
+              <option value="multiple">Multiple can be passed (2)</option>
+              <option value="cannot">Cannot be passed (3)</option>
             </select>
           </div>
         </fieldset>
