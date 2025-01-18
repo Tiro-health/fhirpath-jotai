@@ -4,7 +4,7 @@
 Ever wanted to make your FHIRPath expressions reactive? Now you can! This library provides a way to use FHIRPath expressions in a reactive way using Jotai.
 
 > [!IMPORTANT]
-> This is repository is still in a very early stage and not available for public yet. It needs some minor [modifications to fhirpath.js](https://github.com/HL7/fhirpath.js/pull/162) 📢 Stay tuned for more info. 👋 Reach out if you'd like to help.
+> This is repository is still in a early stage and not production ready yet. 📢 Stay tuned for more info. 👋 Reach out if you'd like to help.
 
 <!--
 ## Installation
