@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       fhirpath:
-        specifier: Tiro-health/fhirpath.js#master
-        version: https://codeload.github.com/Tiro-health/fhirpath.js/tar.gz/149e4cdc204bf94960e960bf15def12615ee39f7
+        specifier: ^3.17.0
+        version: 3.17.0
       fhirpath-jotai:
         specifier: link:..
         version: link:..
@@ -954,9 +954,8 @@ packages:
   fastq@1.18.0:
     resolution: {integrity: sha512-QKHXPW0hD8g4UET03SdOdunzSouc9N4AuHdsX8XNcTsuz+yYFILVNIX4l9yHABMhiEI9Db0JTTIpu0wB+Y1QQw==}
 
-  fhirpath@https://codeload.github.com/Tiro-health/fhirpath.js/tar.gz/149e4cdc204bf94960e960bf15def12615ee39f7:
-    resolution: {tarball: https://codeload.github.com/Tiro-health/fhirpath.js/tar.gz/149e4cdc204bf94960e960bf15def12615ee39f7}
-    version: 3.15.2
+  fhirpath@3.17.0:
+    resolution: {integrity: sha512-Wi/HErkq6aykImKF6/QCZe5KFYle6IeQiipxvMEjJ4WVoCNn66TwXXKQPTb/wp85hxYaWmctESK0XHbC6SuYNA==}
     engines: {node: '>=8.9.0'}
     hasBin: true
 
@@ -1198,6 +1197,7 @@ packages:
 
   lodash.get@4.4.2:
     resolution: {integrity: sha512-z+Uw/vLuy6gQe8cfaFWD7p0wVv8fJl3mbzXh33RS+0oW2wvUqiRXiQ69gLWSLpgB5/6sU+r6BlQR0MBILadqTQ==}
+    deprecated: This package is deprecated. Use the optional chaining (?.) operator instead.
 
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
@@ -2637,7 +2637,7 @@ snapshots:
     dependencies:
       reusify: 1.0.4
 
-  fhirpath@https://codeload.github.com/Tiro-health/fhirpath.js/tar.gz/149e4cdc204bf94960e960bf15def12615ee39f7:
+  fhirpath@3.17.0:
     dependencies:
       '@lhncbc/ucum-lhc': 5.0.4
       antlr4: 4.9.3

@@ -1,25 +1,25 @@
 import { atom } from "jotai";
 import { DevTools } from "jotai-devtools";
 import "jotai-devtools/styles.css";
-import expressionAtom from "../../../lib/main";
+import fhirPathAtom from "../../../lib/main";
 import NumberInputAtom from "../components/NumberInputAtom";
 import ResultAtom from "../components/ResultAtom";
 
 const heightAtom = atom(1.8);
 const weightAtom = atom(80);
-const heightSquaredAtom = expressionAtom<[number]>(
+const heightSquaredAtom = fhirPathAtom<[number]>(
   undefined,
   "%height * %height",
-  { height: heightAtom, weight: weightAtom },
+  { height: heightAtom, weight: weightAtom }
 );
-const bmiAtom = expressionAtom<[number]>(
+const bmiAtom = fhirPathAtom<[number]>(
   undefined,
   "%weight / (%height * %height)",
   {
     weight: weightAtom,
     height: heightAtom,
     "height-sqaured": heightSquaredAtom,
-  },
+  }
 );
 // Only to help Jotai DevTools display the atoms with a label
 heightAtom.debugLabel = "%height";

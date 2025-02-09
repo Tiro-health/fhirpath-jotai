@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import expressionAtom from "../../../lib/main";
+import fhirPathAtom from "../../../lib/main";
 import ResultAtom from "../components/ResultAtom";
 import * as model from "fhirpath/fhir-context/r5";
 import FHIRAtom from "../components/FHIRAtom";
@@ -175,7 +175,7 @@ const qrAtom = atom<QuestionnaireResponse>({
 } as QuestionnaireResponse);
 qrAtom.debugLabel = "QuestionnaireResponse";
 
-const rectumResultAtom = expressionAtom<[number]>(
+const rectumResultAtom = fhirPathAtom<[number]>(
   qrAtom,
   "QuestionnaireResponse.item.where(linkId='rectum').item.answer.weight().sum()",
   { questionnaire: questionnaireAtom },
@@ -183,7 +183,7 @@ const rectumResultAtom = expressionAtom<[number]>(
 );
 rectumResultAtom.debugLabel = "%rectum";
 
-const sigmoidleftcolonResultAtom = expressionAtom<[number]>(
+const sigmoidleftcolonResultAtom = fhirPathAtom<[number]>(
   qrAtom,
   "QuestionnaireResponse.item.where(linkId='sigmoidleftcolon').item.answer.weight().sum()",
   { questionnaire: questionnaireAtom },
@@ -191,7 +191,7 @@ const sigmoidleftcolonResultAtom = expressionAtom<[number]>(
 );
 sigmoidleftcolonResultAtom.debugLabel = "%sigmoidleftcolon";
 
-const traversecolonResultAtom = expressionAtom<[number]>(
+const traversecolonResultAtom = fhirPathAtom<[number]>(
   qrAtom,
   "QuestionnaireResponse.item.where(linkId='traversecolon').item.answer.weight().sum()",
   { questionnaire: questionnaireAtom },
@@ -199,7 +199,7 @@ const traversecolonResultAtom = expressionAtom<[number]>(
 );
 traversecolonResultAtom.debugLabel = "%traversecolon";
 
-const rightcolonResultAtom = expressionAtom<[number]>(
+const rightcolonResultAtom = fhirPathAtom<[number]>(
   qrAtom,
   "QuestionnaireResponse.item.where(linkId='rightcolon').item.answer.weight().sum()",
   { questionnaire: questionnaireAtom },
@@ -207,7 +207,7 @@ const rightcolonResultAtom = expressionAtom<[number]>(
 );
 rightcolonResultAtom.debugLabel = "%rightcolon";
 
-const ileumResultAtom = expressionAtom<[number]>(
+const ileumResultAtom = fhirPathAtom<[number]>(
   qrAtom,
   "QuestionnaireResponse.item.where(linkId='ileum').item.answer.weight().sum()",
   { questionnaire: questionnaireAtom },
@@ -215,7 +215,7 @@ const ileumResultAtom = expressionAtom<[number]>(
 );
 ileumResultAtom.debugLabel = "%ileum";
 
-const resultAtom = expressionAtom<[number]>(
+const resultAtom = fhirPathAtom<[number]>(
   qrAtom,
   "QuestionnaireResponse.repeat(item).answer.weight().sum()",
   { questionnaire: questionnaireAtom },

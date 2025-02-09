@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import expressionAtom from "../../../lib/main";
+import fhirPathAtom from "../../../lib/main";
 import ResultAtom from "../components/ResultAtom";
 import * as model from "fhirpath/fhir-context/r5";
 import FHIRAtom from "../components/FHIRAtom";
@@ -82,7 +82,7 @@ const qrAtom = atom<QuestionnaireResponse>({
 });
 qrAtom.debugLabel = "QuestionnaireResponse";
 
-const TAtom = expressionAtom<number[]>(
+const TAtom = fhirPathAtom<number[]>(
   qrAtom,
   "QuestionnaireResponse.item.where(linkId = 'T').answer.value.code",
   {},
@@ -90,7 +90,7 @@ const TAtom = expressionAtom<number[]>(
 );
 TAtom.debugLabel = "%T";
 
-const NAtom = expressionAtom<number[]>(
+const NAtom = fhirPathAtom<number[]>(
   qrAtom,
   "QuestionnaireResponse.item.where(linkId = 'N').answer.value.code",
   {},
@@ -98,7 +98,7 @@ const NAtom = expressionAtom<number[]>(
 );
 NAtom.debugLabel = "%N";
 
-const MAtom = expressionAtom<number[]>(
+const MAtom = fhirPathAtom<number[]>(
   qrAtom,
   "QuestionnaireResponse.item.where(linkId = 'M').answer.value.code",
   {},
@@ -106,45 +106,53 @@ const MAtom = expressionAtom<number[]>(
 );
 MAtom.debugLabel = "%M";
 
-const isIVA = expressionAtom<[boolean]>(
+const isIVA = fhirPathAtom<[boolean]>(
   qrAtom,
   "iif(%m = 'm1a' or %m = 'm1b', 'IVA', {})",
   { m: MAtom },
   model
 );
 isIVA.debugLabel = "%isIVA";
-const isIVB = expressionAtom<[boolean]>(
+const isIVB = fhirPathAtom<[boolean]>(
   qrAtom,
-  "%m = 'm1c1' or %m = 'm1c2'",
+  "iif(%m = 'm1c1' or %m = 'm1c2', 'IVB', {})",
   { m: MAtom },
   model
 );
 isIVB.debugLabel = "%isIVB";
-const isIIIC = expressionAtom<[boolean]>(
+const isIIIC = fhirPathAtom<[boolean]>(
   qrAtom,
-  "%n = 'n3' and (%t = 't3' or %t = 't4')",
+  "iif(%n = 'n3' and (%t = 't3' or %t = 't4'), 'IIIC', {})",
   { n: NAtom, t: TAtom },
   model
 );
 isIIIC.debugLabel = "%isIIIC";
-const isIIIB = expressionAtom<[boolean]>(
+const isIIIB = fhirPathAtom<[boolean]>(
   qrAtom,
-  "(%n = 'n3' and (%t = 't3' or %t = 't4').not()) or (%n = 'n2b' and (%t = 't1a' or %t = 't1b' or %t = 't1c').not()) or (%n = 'n2a' and %t = 't4')",
+  "iif((%n = 'n3' and (%t = 't3' or %t = 't4').not()) or (%n = 'n2b' and (%t = 't1a' or %t = 't1b' or %t = 't1c').not()) or (%n = 'n2a' and %t = 't4'), IIIB,{})",
   { n: NAtom, t: TAtom },
   model
 );
 isIIIB.debugLabel = "%isIIIB";
-const isIIIA = expressionAtom<[boolean]>(
+const isIIIA = fhirPathAtom<[boolean]>(
   qrAtom,
-  "(%n = 'n2b' and (%t = 't1a' or %t = 't1b' or %t = 't1c')) or (%n = 'n1' and (%t = 't3' or %t = 't4').not())",
+  "iif((%n = 'n2b' and (%t = 't1a' or %t = 't1b' or %t = 't1c')) or (%n = 'n1' and (%t = 't3' or %t = 't4').not()), IIIA, {})",
   { n: NAtom, t: TAtom },
   model
 );
 isIIIA.debugLabel = "%isIIIA";
 
-const stageAtom = expressionAtom<[string]>(
+const isIIB = fhirPathAtom<[boolean]>(
   qrAtom,
-  "iif(%isIVA, 'stage IVA', iif(%isIVB, 'stage IVB', iif(%isIIIC, 'stage IIIC', iif(%isIIIB, 'stage IIIB', iif(%isIIIA, 'stage IIIA', 'stage IIA')))))",
+  "iif((%n = 'n2a' and (%t = 't1a' or %t = 't1b' or %t = 't1c')) or (%n = 'n1' and (%t = 't2a' or %t = 't2b')) or (%n = 'n0' and %t = 't3'), 'IIB', {})",
+  { n: NAtom, t: TAtom },
+  model
+);
+isIIB.debugLabel = "%isIIB";
+
+const stageAtom = fhirPathAtom<[string]>(
+  qrAtom,
+  "(%isIVA | %isIVB | %isIIIC | %isIIIB | %isIIIA | %isIIB)",
   {
     t: TAtom,
     n: NAtom,
@@ -154,6 +162,7 @@ const stageAtom = expressionAtom<[string]>(
     isIIIC,
     isIIIB,
     isIIIA,
+    isIIB,
   },
   model
 );
@@ -236,13 +245,21 @@ export function TNMQuestionnaire() {
             </code>
           </dd>
           <dt className="mt-2 text-sm font-medium text-gray-700">
+            Variable: <code>%isIIB</code>
+          </dt>
+          <dd className="text-sm text-gray-700 rounded-lg border border-gray-300 bg-gray-50 p-2">
+            <code>
+              (%n = 'n2a' and (%t = 't1a' or %t = 't1b' or %t = 't1c')) or (%n =
+              'n1' and (%t = 't2a' or %t = 't2b')) or (%n = 'n0' and %t = 't3')
+            </code>
+          </dd>
+
+          <dt className="mt-2 text-sm font-medium text-gray-700">
             Calculated Expression:
           </dt>
           <dd className="text-sm text-gray-700 rounded-lg border border-gray-300 bg-gray-50 p-2">
             <code>
-              iif(%isIVA, 'stage IVA', iif(%isIVB, 'stage IVB', iif(%isIIIC,
-              'stage IIIC', iif(%isIIIB, 'stage IIIB', iif(%isIIIA, 'stage
-              IIIA', 'stage IIA')))))
+              (%isIVA | %isIVB | %isIIIC | %isIIIB | %isIIIA | %isIIB)
             </code>
           </dd>
         </dl>

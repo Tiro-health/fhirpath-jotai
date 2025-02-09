@@ -12,8 +12,11 @@
     "postversion": "git push --follow-tags"
   },
   "dependencies": {
-    "fhirpath": "Tiro-health/fhirpath.js#master",
+    "fhirpath": "^3.17.0",
     "jotai": "^2.10.4",
+    "jotai-history": "^0.2.1",
+    "jotai-optics": "^0.4.0",
+    "optics-ts": "^2.4.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
