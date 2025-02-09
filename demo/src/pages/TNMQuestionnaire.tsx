@@ -1,12 +1,11 @@
-import { atom } from "jotai";
-import fhirPathAtom from "../../../lib/main";
-import ResultAtom from "../components/ResultAtom";
-import * as model from "fhirpath/fhir-context/r5";
-import FHIRAtom from "../components/FHIRAtom";
-import { useSetAtom } from "jotai";
+import { useSetAtom, PrimitiveAtom, atom } from "jotai";
 import { useCallback } from "react";
-import { PrimitiveAtom } from "jotai";
-import { DevTools } from "jotai-devtools";
+import {} from "jotai";
+import * as model from "fhirpath/fhir-context/r5";
+import fhirPathAtom from "../../../lib/main";
+import { FHIRExpression, QuestionnaireResponse } from "../types";
+import { VariablePanel } from "../components/VariablesPanel";
+import { createSDCContext } from "../sdc";
 
 const TNM_CODE_DISPLAYS = new Map([
   ["t1a", "T1a"],
@@ -27,19 +26,6 @@ const TNM_CODE_DISPLAYS = new Map([
   ["m1c1", "M1c1"],
   ["m1c2", "M1c2"],
 ]);
-type QuestionnaireResponse = {
-  resourceType: "QuestionnaireResponse";
-  status: "in-progress";
-  item: {
-    linkId: string;
-    answer: {
-      valueCoding: {
-        code: string;
-        display: string;
-      };
-    }[];
-  }[];
-};
 
 const qrAtom = atom<QuestionnaireResponse>({
   resourceType: "QuestionnaireResponse",
@@ -82,190 +68,84 @@ const qrAtom = atom<QuestionnaireResponse>({
 });
 qrAtom.debugLabel = "QuestionnaireResponse";
 
-const TAtom = fhirPathAtom<number[]>(
-  qrAtom,
-  "QuestionnaireResponse.item.where(linkId = 'T').answer.value.code",
-  {},
-  model
-);
-TAtom.debugLabel = "%T";
-
-const NAtom = fhirPathAtom<number[]>(
-  qrAtom,
-  "QuestionnaireResponse.item.where(linkId = 'N').answer.value.code",
-  {},
-  model
-);
-NAtom.debugLabel = "%N";
-
-const MAtom = fhirPathAtom<number[]>(
-  qrAtom,
-  "QuestionnaireResponse.item.where(linkId = 'M').answer.value.code",
-  {},
-  model
-);
-MAtom.debugLabel = "%M";
-
-const isIVA = fhirPathAtom<[boolean]>(
-  qrAtom,
-  "iif(%m = 'm1a' or %m = 'm1b', 'IVA', {})",
-  { m: MAtom },
-  model
-);
-isIVA.debugLabel = "%isIVA";
-const isIVB = fhirPathAtom<[boolean]>(
-  qrAtom,
-  "iif(%m = 'm1c1' or %m = 'm1c2', 'IVB', {})",
-  { m: MAtom },
-  model
-);
-isIVB.debugLabel = "%isIVB";
-const isIIIC = fhirPathAtom<[boolean]>(
-  qrAtom,
-  "iif(%n = 'n3' and (%t = 't3' or %t = 't4'), 'IIIC', {})",
-  { n: NAtom, t: TAtom },
-  model
-);
-isIIIC.debugLabel = "%isIIIC";
-const isIIIB = fhirPathAtom<[boolean]>(
-  qrAtom,
-  "iif((%n = 'n3' and (%t = 't3' or %t = 't4').not()) or (%n = 'n2b' and (%t = 't1a' or %t = 't1b' or %t = 't1c').not()) or (%n = 'n2a' and %t = 't4'), IIIB,{})",
-  { n: NAtom, t: TAtom },
-  model
-);
-isIIIB.debugLabel = "%isIIIB";
-const isIIIA = fhirPathAtom<[boolean]>(
-  qrAtom,
-  "iif((%n = 'n2b' and (%t = 't1a' or %t = 't1b' or %t = 't1c')) or (%n = 'n1' and (%t = 't3' or %t = 't4').not()), IIIA, {})",
-  { n: NAtom, t: TAtom },
-  model
-);
-isIIIA.debugLabel = "%isIIIA";
-
-const isIIB = fhirPathAtom<[boolean]>(
-  qrAtom,
-  "iif((%n = 'n2a' and (%t = 't1a' or %t = 't1b' or %t = 't1c')) or (%n = 'n1' and (%t = 't2a' or %t = 't2b')) or (%n = 'n0' and %t = 't3'), 'IIB', {})",
-  { n: NAtom, t: TAtom },
-  model
-);
-isIIB.debugLabel = "%isIIB";
-
-const stageAtom = fhirPathAtom<[string]>(
-  qrAtom,
-  "(%isIVA | %isIVB | %isIIIC | %isIIIB | %isIIIA | %isIIB)",
+const variables: FHIRExpression[] = [
   {
-    t: TAtom,
-    n: NAtom,
-    m: MAtom,
-    isIVA,
-    isIVB,
-    isIIIC,
-    isIIIB,
-    isIIIA,
-    isIIB,
+    name: "T",
+    expression:
+      "QuestionnaireResponse.item.where(linkId = 'T').answer.value.code",
   },
-  model
+  {
+    name: "N",
+    expression:
+      "QuestionnaireResponse.item.where(linkId = 'N').answer.value.code",
+  },
+  {
+    name: "M",
+    expression:
+      "QuestionnaireResponse.item.where(linkId = 'M').answer.value.code",
+  },
+  {
+    name: "isIVA",
+    expression: "iif(%M = 'm1a' or %M = 'm1b', 'IVA', {})",
+  },
+  {
+    name: "isIVB",
+    expression: "iif(%M = 'm1c1' or %M = 'm1c2', 'IVB', {})",
+  },
+  {
+    name: "isIIIC",
+    expression: "iif(%N = 'n3' and (%T = 't3' or %T = 't4'), 'IIIC', {})",
+  },
+  {
+    name: "isIIIB",
+    expression:
+      "iif((%N = 'n3' and (%T = 't3' or %T = 't4').not()) or (%N = 'n2b' and (%T = 't1a' or %T = 't1b' or %T = 't1c').not()) or (%N = 'n2a' and %T = 't4'), 'IIIB' ,{})",
+  },
+  {
+    name: "isIIIA",
+    expression:
+      "iif((%N = 'n2b' and (%T = 't1a' or %T = 't1b' or %T = 't1c')) or (%N = 'n1' and (%T = 't3' or %T = 't4').not()), 'IIIA', {})",
+  },
+  {
+    name: "isIIB",
+    expression:
+      "iif((%N = 'n2a' and (%T = 't1a' or %T = 't1b' or %T = 't1c')) or (%N = 'n1' and (%T = 't2a' or %T = 't2b')) or (%N = 'n0' and %T = 't3'), 'IIB', {})",
+  },
+  {
+    name: "isIIA",
+    expression:
+      "iif((%N = 'n1' and (%T = 't1a' or %T = 't1b' or %T = 't1c')) or (%N = 'n0' and %T = 't2b'), 'IIA', {})",
+  },
+  {
+    name: "isIA",
+    expression:
+      "iif(%N = 'n0' and (%T = 't1a' or %T = 't1b' or %T = 't1c'), 'IA', {})",
+  },
+  {
+    name: "isIB",
+    expression: "iif(%N = 'n0' and %T = 't2a', 'IB', {})",
+  },
+];
+
+const calculatedExpression =
+  "(%isIVA | %isIVB | %isIIIC | %isIIIB | %isIIIA | %isIIB | %isIIA | %isIA | %isIB)";
+
+const calculated = fhirPathAtom<[string]>(
+  qrAtom,
+  calculatedExpression,
+  createSDCContext(qrAtom, variables, {}, model)
 );
-stageAtom.debugLabel = "%stage";
 
-export function TNMQuestionnaire() {
+export default function TNMQuestionnairePage() {
   return (
-    <div className="flex flex-col p-4 min-w-fit w-full max-w-screen-sm">
-      <p className="text-lg text-gray-700 font-medium">
-        🚧 This example is under construction.
-      </p>
+    <VariablePanel
+      qrAtom={qrAtom}
+      variables={variables}
+      calculatedAtom={calculated}
+      calculatedExpression={calculatedExpression}
+    >
       <TNMForm qrAtom={qrAtom} />
-      <form className="mt-4 space-y-4">
-        <ResultAtom label="Calculated result" atom={stageAtom} />
-        <FHIRAtom label="QuestionnaireResponse" atom={qrAtom} />
-        <dl className="flex flex-col">
-          <dt className="text-sm font-medium text-gray-700">
-            Variable: <code>%T</code>
-          </dt>
-          <dd className="text-sm text-gray-700 rounded-lg border border-gray-300 bg-gray-50 p-2">
-            <code>
-              QuestionnaireResponse.item.where(linkId = 'T').answer.value.code
-            </code>
-          </dd>
-          <dt className="mt-2 text-sm font-medium text-gray-700">
-            Variable: <code>%N</code>
-          </dt>
-          <dd className="text-sm text-gray-700 rounded-lg border border-gray-300 bg-gray-50 p-2">
-            <code>
-              QuestionnaireResponse.item.where(linkId = 'N').answer.value.code
-            </code>
-          </dd>
-          <dt className="mt-2 text-sm font-medium text-gray-700">
-            Variable: <code>%M</code>
-          </dt>
-          <dd className="text-sm text-gray-700 rounded-lg border border-gray-300 bg-gray-50 p-2">
-            <code>
-              QuestionnaireResponse.item.where(linkId = 'M').answer.value.code
-            </code>
-          </dd>
-          <dt className="mt-2 text-sm font-medium text-gray-700">
-            Variable: <code>%isIVA</code>
-          </dt>
-          <dd className="text-sm text-gray-700 rounded-lg border border-gray-300 bg-gray-50 p-2">
-            <code>%m = 'm1a' or %m = 'm1b'</code>
-          </dd>
-
-          <dt className="mt-2 text-sm font-medium text-gray-700">
-            Variable: <code>%isIVB</code>
-          </dt>
-          <dd className="text-sm text-gray-700 rounded-lg border border-gray-300 bg-gray-50 p-2">
-            <code>%m = 'm1c1' or %m = 'm1c2'</code>
-          </dd>
-
-          <dt className="mt-2 text-sm font-medium text-gray-700">
-            Variable: <code>%isIIIC</code>
-          </dt>
-          <dd className="text-sm text-gray-700 rounded-lg border border-gray-300 bg-gray-50 p-2">
-            <code>%n = 'n3' and (%t = 't3' or %t = 't4')</code>
-          </dd>
-
-          <dt className="mt-2 text-sm font-medium text-gray-700">
-            Variable: <code>%isIIIB</code>
-          </dt>
-          <dd className="text-sm text-gray-700 rounded-lg border border-gray-300 bg-gray-50 p-2">
-            <code>
-              (%n = 'n3' and (%t = 't3' or %t = 't4').not()) or (%n = 'n2b' and
-              (%t = 't1a' or %t = 't1b' or %t = 't1c').not()) or (%n = 'n2a' and
-              %t = 't4')
-            </code>
-          </dd>
-
-          <dt className="mt-2 text-sm font-medium text-gray-700">
-            Variable: <code>%isIIIA</code>
-          </dt>
-          <dd className="text-sm text-gray-700 rounded-lg border border-gray-300 bg-gray-50 p-2">
-            <code>
-              (%n = 'n2b' and (%t = 't1a' or %t = 't1b' or %t = 't1c')) or (%n =
-              'n1' and (%t = 't3' or %t = 't4').not())
-            </code>
-          </dd>
-          <dt className="mt-2 text-sm font-medium text-gray-700">
-            Variable: <code>%isIIB</code>
-          </dt>
-          <dd className="text-sm text-gray-700 rounded-lg border border-gray-300 bg-gray-50 p-2">
-            <code>
-              (%n = 'n2a' and (%t = 't1a' or %t = 't1b' or %t = 't1c')) or (%n =
-              'n1' and (%t = 't2a' or %t = 't2b')) or (%n = 'n0' and %t = 't3')
-            </code>
-          </dd>
-
-          <dt className="mt-2 text-sm font-medium text-gray-700">
-            Calculated Expression:
-          </dt>
-          <dd className="text-sm text-gray-700 rounded-lg border border-gray-300 bg-gray-50 p-2">
-            <code>
-              (%isIVA | %isIVB | %isIIIC | %isIIIB | %isIIIA | %isIIB)
-            </code>
-          </dd>
-        </dl>
-      </form>
-      <DevTools position="top-right" isInitialOpen />
-    </div>
+    </VariablePanel>
   );
 }
 

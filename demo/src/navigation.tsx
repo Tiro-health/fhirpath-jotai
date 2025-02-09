@@ -5,15 +5,19 @@ export default [
     href: "/lbm",
   },
   {
-    name: "BMI-Questionnaire 🚧",
+    name: "BMI-Questionnaire",
     href: "/bmi-questionnaire",
   },
   {
-    name: "TNM-Questionnaire 🚧",
+    name: "TNM-Questionnaire",
     href: "/tnm-questionnaire",
   },
   {
     name: "SESCD-Questionnaire",
     href: "/sescd-questionnaire",
+  },
+  {
+    name: "LNI-Questionnaire",
+    href: "/lni-questionnaire",
   },
 ];

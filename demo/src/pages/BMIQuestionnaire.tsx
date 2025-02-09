@@ -1,20 +1,11 @@
 import { useCallback } from "react";
 import { atom, useSetAtom, PrimitiveAtom } from "jotai";
-import fhirPathAtom from "../../../lib/main";
-import ResultAtom from "../components/ResultAtom";
 import * as model from "fhirpath/fhir-context/r5";
-import FHIRAtom from "../components/FHIRAtom";
-import { DevTools } from "jotai-devtools";
-type QuestionnaireResponse = {
-  resourceType: "QuestionnaireResponse";
-  status: "in-progress";
-  item: {
-    linkId: string;
-    answer: {
-      valueDecimal: number;
-    }[];
-  }[];
-};
+import fhirPathAtom from "../../../lib/main";
+import { FHIRExpression, QuestionnaireResponse } from "../types";
+import { createSDCContext } from "../sdc";
+import { VariablePanel } from "../components/VariablesPanel";
+
 const qrAtom = atom<QuestionnaireResponse>({
   resourceType: "QuestionnaireResponse",
   status: "in-progress",
@@ -39,71 +30,24 @@ const qrAtom = atom<QuestionnaireResponse>({
 });
 qrAtom.debugLabel = "QuestionnaireResponse";
 
-const heightAtom = fhirPathAtom<number[]>(
-  qrAtom,
-  "QuestionnaireResponse.item.where(linkId = 'height').answer.value",
-  {},
-  model
-);
-heightAtom.debugLabel = "%height";
-
-const weightAtom = fhirPathAtom<number[]>(
-  qrAtom,
-  "QuestionnaireResponse.item.where(linkId = 'weight').answer.value",
-  {},
-  model
-);
-weightAtom.debugLabel = "%weight";
-const bmiAtom = fhirPathAtom<[number]>(
-  qrAtom,
-  "%weight / (%height * %height)",
+const variables: FHIRExpression[] = [
   {
-    weight: weightAtom,
-    height: heightAtom,
+    name: "height",
+    expression:
+      "QuestionnaireResponse.item.where(linkId = 'height').answer.value",
   },
-  model
+  {
+    name: "weight",
+    expression:
+      "QuestionnaireResponse.item.where(linkId = 'weight').answer.value",
+  },
+];
+const calculatedExpression = "(%weight / (%height * %height)).round(2)";
+const calculated = fhirPathAtom<[number]>(
+  qrAtom,
+  calculatedExpression,
+  createSDCContext(qrAtom, variables, {}, model)
 );
-bmiAtom.debugLabel = "%bmi";
-
-export function BMIQuestionnaire() {
-  return (
-    <div className="flex flex-col p-4 min-w-fit w-full max-w-screen-sm">
-      <p className="text-lg text-gray-700 font-medium">
-        🚧 This example is under construction.
-      </p>
-      <BMIForm qrAtom={qrAtom} />
-      <form className="mt-4 space-y-4">
-        <ResultAtom label="Calculated result" atom={bmiAtom} />
-        <FHIRAtom label="QuestionnaireResponse" atom={qrAtom} />
-        <dl className="flex flex-col">
-          <dt className="text-sm font-medium text-gray-700">
-            Variable: <code>%height</code>
-          </dt>
-          <dd className="text-sm text-gray-700 rounded-lg border border-gray-300 bg-gray-50 p-2">
-            <code>
-              QuestionnaireResponse.item.where(linkId = 'height').answer.value
-            </code>
-          </dd>
-          <dt className="mt-2 text-sm font-medium text-gray-700">
-            Variable: <code>%weight</code>
-          </dt>
-          <dd className="text-sm text-gray-700 rounded-lg border border-gray-300 bg-gray-50 p-2">
-            <code>
-              QuestionnaireResponse.item.where(linkId = 'weight').answer.value
-            </code>
-          </dd>
-          <dt className="mt-2 text-sm font-medium text-gray-700">
-            Calculated Expression:
-          </dt>
-          <dd className="text-sm text-gray-700 rounded-lg border border-gray-300 bg-gray-50 p-2">
-            <code>%weight / (%height * %height)</code>
-          </dd>
-        </dl>
-      </form>
-      <DevTools position="top-right" isInitialOpen />
-    </div>
-  );
-}
 
 function BMIForm({ qrAtom }: { qrAtom: PrimitiveAtom<QuestionnaireResponse> }) {
   const setQr = useSetAtom(qrAtom);
@@ -163,5 +107,18 @@ function BMIForm({ qrAtom }: { qrAtom: PrimitiveAtom<QuestionnaireResponse> }) {
         />
       </div>
     </form>
+  );
+}
+
+export default function BMIQuestionnairePage() {
+  return (
+    <VariablePanel
+      qrAtom={qrAtom}
+      variables={variables}
+      calculatedAtom={calculated}
+      calculatedExpression={calculatedExpression}
+    >
+      <BMIForm qrAtom={qrAtom} />
+    </VariablePanel>
   );
 }

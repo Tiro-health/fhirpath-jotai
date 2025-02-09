@@ -5,11 +5,12 @@ import { BrowserRouter, Route, Routes } from "react-router";
 
 import { BMICalculator } from "./pages/BMICalculator";
 import { LBMCalculator } from "./pages/LBMCalculator";
-import { BMIQuestionnaire } from "./pages/BMIQuestionnaire";
-import { TNMQuestionnaire } from "./pages/TNMQuestionnaire";
+import BMIQuestionnairePage from "./pages/BMIQuestionnaire";
+import TNMQuestionnairePage from "./pages/TNMQuestionnaire";
 import { Home } from "./pages/Home";
 import Layout from "./components/Layout";
 import { SESCDQuestionnaire } from "./pages/SESCDQuestionnaire";
+import LNIQuestionnairePage from "./pages/LNIQuestionnaire";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -19,9 +20,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route index element={<Home />} />
           <Route path="bmi" element={<BMICalculator />} />
           <Route path="lbm" element={<LBMCalculator />} />
-          <Route path="bmi-questionnaire" element={<BMIQuestionnaire />} />
-          <Route path="tnm-questionnaire" element={<TNMQuestionnaire />} />
+          <Route path="bmi-questionnaire" element={<BMIQuestionnairePage />} />
+          <Route path="tnm-questionnaire" element={<TNMQuestionnairePage />} />
           <Route path="sescd-questionnaire" element={<SESCDQuestionnaire />} />
+          <Route path="lni-questionnaire" element={<LNIQuestionnairePage />} />
         </Route>
       </Routes>
     </BrowserRouter>

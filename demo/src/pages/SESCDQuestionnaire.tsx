@@ -305,7 +305,7 @@ export function SESCDQuestionnaire() {
           </div>
         </dl>
       </form>
-      <DevTools position="top-right" isInitialOpen />
+      <DevTools position="top-right" />
     </div>
   );
 }

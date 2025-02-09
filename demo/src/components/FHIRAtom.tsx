@@ -1,7 +1,7 @@
 import { useAtomValue, PrimitiveAtom } from "jotai";
 
 export default function FHIRAtom<
-  TValue extends Record<string, unknown> | undefined,
+  TValue extends Record<string, unknown> | undefined
 >({ label, atom }: { label: string; atom: PrimitiveAtom<TValue> }) {
   const value = useAtomValue(atom);
   return (
