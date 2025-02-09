@@ -1,7 +1,7 @@
 import { Atom, atom } from "jotai";
 import { createStore } from "jotai";
 import { expect, test } from "vitest";
-import expressionAtom from "./main";
+import fhirPathAtom from "./main";
 
 test("if sum is updated when updating operands", () => {
   const store = createStore();
@@ -9,7 +9,7 @@ test("if sum is updated when updating operands", () => {
   const b = atom(0);
   const c = atom(0);
   const context = { a, b, c };
-  const resultAtom = expressionAtom(undefined, "%a + %b", context);
+  const resultAtom = fhirPathAtom(undefined, "%a + %b", context);
   expect(store.get(resultAtom)).toStrictEqual([0]);
   store.set(a, 1);
   store.set(b, 2);
@@ -21,8 +21,9 @@ test("if sum is updated when updating operands", () => {
 test("if multiple linked expressions are resolved", () => {
   const store = createStore();
   const context: Record<string, Atom<unknown>> = {};
-  context["a"] = expressionAtom(undefined, "1", context);
-  context["b"] = expressionAtom(undefined, "2", context);
-  const resultAtom = expressionAtom(undefined, "%a + %b", context);
+  context["a"] = fhirPathAtom(undefined, "1", context);
+  context["b"] = fhirPathAtom(undefined, "2", context);
+  console.log(context);
+  const resultAtom = fhirPathAtom(undefined, "%a + %b", context);
   expect(store.get(resultAtom)).toStrictEqual([3]);
 });

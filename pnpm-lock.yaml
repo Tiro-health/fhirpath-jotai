@@ -9,11 +9,20 @@ importers:
   .:
     dependencies:
       fhirpath:
-        specifier: Tiro-health/fhirpath.js#master
-        version: https://codeload.github.com/Tiro-health/fhirpath.js/tar.gz/149e4cdc204bf94960e960bf15def12615ee39f7
+        specifier: ^3.17.0
+        version: 3.17.0
       jotai:
         specifier: ^2.10.4
         version: 2.10.4(@types/react@18.3.17)(react@18.3.1)
+      jotai-history:
+        specifier: ^0.2.1
+        version: 0.2.1(jotai@2.10.4(@types/react@18.3.17)(react@18.3.1))
+      jotai-optics:
+        specifier: ^0.4.0
+        version: 0.4.0(jotai@2.10.4(@types/react@18.3.17)(react@18.3.1))(optics-ts@2.4.1)
+      optics-ts:
+        specifier: ^2.4.1
+        version: 2.4.1
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -1076,9 +1085,8 @@ packages:
   fastq@1.17.1:
     resolution: {integrity: sha512-sRVD3lWVIXWg6By68ZN7vho9a1pQcN/WBFaAAsDDFzlJjvoGx0P8z7V1t72grFJfJhu3YPZBuu25f7Kaw2jN1w==}
 
-  fhirpath@https://codeload.github.com/Tiro-health/fhirpath.js/tar.gz/149e4cdc204bf94960e960bf15def12615ee39f7:
-    resolution: {tarball: https://codeload.github.com/Tiro-health/fhirpath.js/tar.gz/149e4cdc204bf94960e960bf15def12615ee39f7}
-    version: 3.15.2
+  fhirpath@3.17.0:
+    resolution: {integrity: sha512-Wi/HErkq6aykImKF6/QCZe5KFYle6IeQiipxvMEjJ4WVoCNn66TwXXKQPTb/wp85hxYaWmctESK0XHbC6SuYNA==}
     engines: {node: '>=8.9.0'}
     hasBin: true
 
@@ -1215,6 +1223,17 @@ packages:
     resolution: {integrity: sha512-/imKNG4EbWNrVjoNC/1H5/9GFy+tqjGBHCaSsN+P2RnPqjsLmv6UD3Ej+Kj8nBWaRAwyk7kK5ZUc+OEatnTR3A==}
     hasBin: true
 
+  jotai-history@0.2.1:
+    resolution: {integrity: sha512-iDswOiEN5NlErFcAXwCADD+0DvI37pst1FwUuq7/jfKlLPRhb0apQoIIbBOrz2cVG9QM6lmfwqhkhJRmC4L9gg==}
+    peerDependencies:
+      jotai: '>=2.5.0'
+
+  jotai-optics@0.4.0:
+    resolution: {integrity: sha512-osbEt9AgS55hC4YTZDew2urXKZkaiLmLqkTS/wfW5/l0ib8bmmQ7kBXSFaosV6jDDWSp00IipITcJARFHdp42g==}
+    peerDependencies:
+      jotai: '>=2.0.0'
+      optics-ts: '>=2.0.0'
+
   jotai@2.10.4:
     resolution: {integrity: sha512-/T4ofyMSkAybEs2OvR8S4HACa+/ASUEPLz86SUjFXJqU9RdJKLvZDJrag398suvHC5CR0+Cs4P5m/gtVcryzlw==}
     engines: {node: '>=12.20.0'}
@@ -1280,6 +1299,7 @@ packages:
 
   lodash.get@4.4.2:
     resolution: {integrity: sha512-z+Uw/vLuy6gQe8cfaFWD7p0wVv8fJl3mbzXh33RS+0oW2wvUqiRXiQ69gLWSLpgB5/6sU+r6BlQR0MBILadqTQ==}
+    deprecated: This package is deprecated. Use the optional chaining (?.) operator instead.
 
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
@@ -1332,6 +1352,9 @@ packages:
 
   node-releases@2.0.19:
     resolution: {integrity: sha512-xxOWJsBKtzAq7DY0J+DTzuz58K8e7sJbdgwkbMWQe8UYB6ekmsQ45q0M/tJDsGaZmbC+l7n57UV8Hl5tHxO9uw==}
+
+  optics-ts@2.4.1:
+    resolution: {integrity: sha512-HaYzMHvC80r7U/LqAd4hQyopDezC60PO2qF5GuIwALut2cl5rK1VWHsqTp0oqoJJWjiv6uXKqsO+Q2OO0C3MmQ==}
 
   optionator@0.9.4:
     resolution: {integrity: sha512-6IpQ7mKUxRcZNLIObR0hz7lxsapSSIYNZJwXPGeF0mTVqGKFIXj1DQcMoT22S3ROcLyY/rz0PWaWZ9ayWmad9g==}
@@ -2813,7 +2836,7 @@ snapshots:
     dependencies:
       reusify: 1.0.4
 
-  fhirpath@https://codeload.github.com/Tiro-health/fhirpath.js/tar.gz/149e4cdc204bf94960e960bf15def12615ee39f7:
+  fhirpath@3.17.0:
     dependencies:
       '@lhncbc/ucum-lhc': 5.0.4
       antlr4: 4.9.3
@@ -2936,6 +2959,15 @@ snapshots:
   jiti@1.21.7:
     optional: true
 
+  jotai-history@0.2.1(jotai@2.10.4(@types/react@18.3.17)(react@18.3.1)):
+    dependencies:
+      jotai: 2.10.4(@types/react@18.3.17)(react@18.3.1)
+
+  jotai-optics@0.4.0(jotai@2.10.4(@types/react@18.3.17)(react@18.3.1))(optics-ts@2.4.1):
+    dependencies:
+      jotai: 2.10.4(@types/react@18.3.17)(react@18.3.1)
+      optics-ts: 2.4.1
+
   jotai@2.10.4(@types/react@18.3.17)(react@18.3.1):
     optionalDependencies:
       '@types/react': 18.3.17
@@ -3031,6 +3063,8 @@ snapshots:
   natural-compare@1.4.0: {}
 
   node-releases@2.0.19: {}
+
+  optics-ts@2.4.1: {}
 
   optionator@0.9.4:
     dependencies:

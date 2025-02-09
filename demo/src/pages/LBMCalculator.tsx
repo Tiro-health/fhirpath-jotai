@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import expressionAtom from "../../../lib/main";
+import fhirPathAtom from "../../../lib/main";
 import { DevTools } from "jotai-devtools";
 import "jotai-devtools/styles.css";
 import NumberInputAtom from "../components/NumberInputAtom";
@@ -9,7 +9,7 @@ import SelectAtom from "../components/SelectAtom";
 const heightAtom = atom(1.75);
 const weightAtom = atom(65);
 const genderAtom = atom<string>("female");
-const lbmAtom = expressionAtom<[number]>(
+const lbmAtom = fhirPathAtom<[number]>(
   undefined,
   // the James formula
   "iif(%gender = 'male', 1.1 * %weight - 128 * (%weight / %height).power(2), iif(%gender = 'female', 1.07 * %weight - 148 * (%weight / %height).power(2), {}))",
@@ -17,7 +17,7 @@ const lbmAtom = expressionAtom<[number]>(
     weight: weightAtom,
     height: heightAtom,
     gender: genderAtom,
-  },
+  }
 );
 // Only to help Jotai DevTools display the atoms with a label
 heightAtom.debugLabel = "%height";

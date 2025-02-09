@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { atom, useSetAtom, PrimitiveAtom } from "jotai";
-import expressionAtom from "../../../lib/main";
+import fhirPathAtom from "../../../lib/main";
 import ResultAtom from "../components/ResultAtom";
 import * as model from "fhirpath/fhir-context/r5";
 import FHIRAtom from "../components/FHIRAtom";
@@ -39,29 +39,29 @@ const qrAtom = atom<QuestionnaireResponse>({
 });
 qrAtom.debugLabel = "QuestionnaireResponse";
 
-const heightAtom = expressionAtom<number[]>(
+const heightAtom = fhirPathAtom<number[]>(
   qrAtom,
   "QuestionnaireResponse.item.where(linkId = 'height').answer.value",
   {},
-  model,
+  model
 );
 heightAtom.debugLabel = "%height";
 
-const weightAtom = expressionAtom<number[]>(
+const weightAtom = fhirPathAtom<number[]>(
   qrAtom,
   "QuestionnaireResponse.item.where(linkId = 'weight').answer.value",
   {},
-  model,
+  model
 );
 weightAtom.debugLabel = "%weight";
-const bmiAtom = expressionAtom<[number]>(
+const bmiAtom = fhirPathAtom<[number]>(
   qrAtom,
   "%weight / (%height * %height)",
   {
     weight: weightAtom,
     height: heightAtom,
   },
-  model,
+  model
 );
 bmiAtom.debugLabel = "%bmi";
 
@@ -134,7 +134,7 @@ function BMIForm({ qrAtom }: { qrAtom: PrimitiveAtom<QuestionnaireResponse> }) {
         return next;
       });
     },
-    [setQr],
+    [setQr]
   );
 
   return (
