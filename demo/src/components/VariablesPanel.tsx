@@ -4,7 +4,6 @@ import ResultAtom from "./ResultAtom";
 import { DevTools } from "jotai-devtools";
 import { FHIRExpression, QuestionnaireResponse } from "../types";
 import { Atom } from "jotai";
-import VariableAtom from "./VariableAtom";
 
 type VariablePanelProps<TResult> = {
   children?: React.ReactNode;
