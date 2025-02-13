@@ -1,6 +1,6 @@
 {
   "name": "fhirpath-jotai",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "type": "module",
   "main": "./dist/fhirpath-jotai.umd.cjs",
   "module": "./dist/fhirpath-jotai.es.js",
