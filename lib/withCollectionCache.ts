@@ -17,7 +17,7 @@ export default function withCollectionCache<T extends unknown[]>(
   );
   refAtom.debugPrivate = true;
   // Return an atom that returns the previous collection when the collection nodes have not changed
-  return atom((get) => {
+  const cachedAtom = atom((get) => {
     const ref = get(refAtom);
     const current = get(targetAtom);
     const previous = ref.previous;
@@ -25,6 +25,8 @@ export default function withCollectionCache<T extends unknown[]>(
     if (previous && shallowEqual(current, previous)) return previous;
     return (ref.previous = current); // Update the previous collection and return the current collection
   });
+  cachedAtom.debugPrivate = true;
+  return cachedAtom;
 }
 
 /*
