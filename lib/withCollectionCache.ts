@@ -26,20 +26,7 @@ export default function withCollectionCache<T extends unknown[]>(
     return (ref.previous = current); // Update the previous collection and return the current collection
   });
   cachedAtom.debugPrivate = true;
-  return new Proxy(cachedAtom, {
-    get(target, p, receiver) {
-      if (p == "debugLabel") {
-        return targetAtom.debugLabel;
-      }
-      return Reflect.get(target, p, receiver);
-    },
-    set(target, p, newValue, receiver) {
-      if (p == "debugLabel") {
-        targetAtom.debugLabel = newValue;
-      }
-      return Reflect.set(target, p, newValue, receiver);
-    },
-  });
+  return cachedAtom;
 }
 
 /*

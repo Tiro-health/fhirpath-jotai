@@ -29,24 +29,37 @@ export default function fhirPathAtom<
   model?: Model,
   options?: OptionVariants | undefined
 ): Atom<TResult> {
-  return withCollectionCache(
-    atom((get) => {
-      const contextProxy: ContextAtoms | undefined =
-        context != undefined
-          ? new Proxy(context, createVarsProxyHandler(get))
-          : undefined;
-      const result = evaluate(
-        fhirData ? get(fhirData) : undefined,
-        expression,
-        contextProxy,
-        model,
-        options
+  const expressionAtom = atom((get) => {
+    const contextProxy: ContextAtoms | undefined =
+      context != undefined
+        ? new Proxy(context, createVarsProxyHandler(get))
+        : undefined;
+    const result = evaluate(
+      fhirData ? get(fhirData) : undefined,
+      expression,
+      contextProxy,
+      model,
+      options
+    );
+    if (result instanceof Promise)
+      throw new Error(
+        "Async evaluation of FHIRPath expressions is not supported."
       );
-      if (result instanceof Promise)
-        throw new Error(
-          "Async evaluation of FHIRPath expressions is not supported."
-        );
-      return result as TResult;
-    })
-  );
+    return result as TResult;
+  });
+  const cachedAtom = withCollectionCache(expressionAtom);
+  return new Proxy(cachedAtom, {
+    get(target, p, receiver) {
+      if (p == "debugLabel") {
+        return expressionAtom.debugLabel;
+      }
+      return Reflect.get(target, p, receiver);
+    },
+    set(target, p, newValue, receiver) {
+      if (p == "debugLabel") {
+        expressionAtom.debugLabel = newValue;
+      }
+      return Reflect.set(target, p, newValue, receiver);
+    },
+  });
 }
