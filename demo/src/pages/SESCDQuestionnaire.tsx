@@ -221,7 +221,7 @@ const resultAtom = fhirPathAtom<[number]>(
   { questionnaire: questionnaireAtom },
   model
 );
-resultAtom.debugLabel = "%score";
+resultAtom.debugLabel = "calculatedExpression";
 
 export function SESCDQuestionnaire() {
   return (

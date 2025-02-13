@@ -98,6 +98,7 @@ const calculated = fhirPathAtom<[number]>(
   calculatedExpression,
   createSDCContext(qrAtom, variables, {}, model)
 );
+calculated.debugLabel = "calculatedExpression";
 
 function LNIForm({ qrAtom }: { qrAtom: PrimitiveAtom<QuestionnaireResponse> }) {
   const setQr = useSetAtom(qrAtom);

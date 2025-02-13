@@ -23,7 +23,7 @@ const lbmAtom = fhirPathAtom<[number]>(
 heightAtom.debugLabel = "%height";
 weightAtom.debugLabel = "%weight";
 genderAtom.debugLabel = "%gender";
-lbmAtom.debugLabel = "%lbm";
+lbmAtom.debugLabel = "calculatedExpression";
 
 export function LBMCalculator() {
   return (

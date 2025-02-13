@@ -135,6 +135,7 @@ const calculated = fhirPathAtom<[string]>(
   calculatedExpression,
   createSDCContext(qrAtom, variables, {}, model)
 );
+calculated.debugLabel = "calculatedExpression";
 
 export default function TNMQuestionnairePage() {
   return (

@@ -43,11 +43,12 @@ const variables: FHIRExpression[] = [
   },
 ];
 const calculatedExpression = "(%weight / (%height * %height)).round(2)";
-const calculated = fhirPathAtom<[number]>(
+const calculatedAtom = fhirPathAtom<[number]>(
   qrAtom,
   calculatedExpression,
   createSDCContext(qrAtom, variables, {}, model)
 );
+calculatedAtom.debugLabel = "calculatedExpression";
 
 function BMIForm({ qrAtom }: { qrAtom: PrimitiveAtom<QuestionnaireResponse> }) {
   const setQr = useSetAtom(qrAtom);
@@ -115,7 +116,7 @@ export default function BMIQuestionnairePage() {
     <VariablePanel
       qrAtom={qrAtom}
       variables={variables}
-      calculatedAtom={calculated}
+      calculatedAtom={calculatedAtom}
       calculatedExpression={calculatedExpression}
     >
       <BMIForm qrAtom={qrAtom} />

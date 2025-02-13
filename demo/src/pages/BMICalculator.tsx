@@ -25,7 +25,7 @@ const bmiAtom = fhirPathAtom<[number]>(
 heightAtom.debugLabel = "%height";
 heightSquaredAtom.debugLabel = "%height-squared";
 weightAtom.debugLabel = "%weight";
-bmiAtom.debugLabel = "%bmi";
+bmiAtom.debugLabel = "calculatedExpression";
 
 export function BMICalculator() {
   return (
