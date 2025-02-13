@@ -41,5 +41,8 @@
       "import": "./dist/fhirpath-jotai.es.js",
       "require": "./dist/fhirpath-jotai.umd.cjs"
     }
-  }
+  },
+  "files":[
+    "dist"
+  ]
 }
