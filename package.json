@@ -29,11 +29,13 @@
     "typescript": "~5.6.2",
     "typescript-eslint": "^8.18.1",
     "vite": "^6.0.3",
+    "vite-plugin-dts": "^4.5.0",
     "vitest": "^2.1.8"
   },
   "exports": {
     ".": {
-      "import": "./dist/fhirpath-jotai.js",
+      "types": "./dist/fhirpath-jotai.d.ts",
+      "import": "./dist/fhirpath-jotai.es.js",
       "require": "./dist/fhirpath-jotai.umd.cjs"
     }
   }
