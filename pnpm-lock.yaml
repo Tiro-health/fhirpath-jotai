@@ -12,7 +12,7 @@ importers:
         specifier: ^3.17.0
         version: 3.17.0
       jotai:
-        specifier: ^2.10.4
+        specifier: '>=2.0.0'
         version: 2.10.4(@types/react@18.3.17)(react@18.3.1)
     devDependencies:
       '@changesets/cli':
