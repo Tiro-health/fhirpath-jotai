@@ -1,6 +1,7 @@
 import { createStore } from "jotai";
 import { atom } from "jotai";
 import { describe, expect, test, vi } from "vitest";
+import * as model from "fhirpath/fhir-context/r5";
 import fhirPathAtom from "./main";
 
 describe("resource atom with localized updates", () => {
@@ -39,7 +40,9 @@ describe("resource atom with localized updates", () => {
     const resource = atom(initialResource);
     const testExpressionAtom = fhirPathAtom(
       resource,
-      "QuestionnaireResponse.item.where(linkId='3')"
+      "QuestionnaireResponse.item.where(linkId='3')",
+      {},
+      model
     );
     const store = createStore();
     const expressionResult = store.get(testExpressionAtom);
@@ -68,7 +71,9 @@ describe("resource atom with localized updates", () => {
     const resource = atom(initialResource);
     const lastItem = fhirPathAtom(
       resource,
-      "QuestionnaireResponse.item.where(linkId='3')"
+      "QuestionnaireResponse.item.where(linkId='3')",
+      {},
+      model
     );
     const store = createStore();
     const mockFn = vi.fn();
@@ -88,5 +93,77 @@ describe("resource atom with localized updates", () => {
       ],
     });
     expect(mockFn).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("item atom can use %context", () => {
+  const initialResource = {
+    resourceType: "QuestionnaireResponse",
+    questionnaire: "https://example.org/fhir/Questionnaire/1",
+    status: "in-progress",
+    item: [
+      {
+        linkId: "1",
+        answer: [
+          {
+            valueString: "John Doe",
+          },
+        ],
+      },
+      {
+        linkId: "2",
+        answer: [
+          {
+            valueDate: "2021-01-01",
+          },
+        ],
+      },
+      {
+        linkId: "3",
+        answer: [
+          {
+            valueDecimal: 68.5,
+          },
+        ],
+      },
+    ],
+  };
+  test("%context evaluates to correct item", () => {
+    const qr = atom(initialResource);
+    const item = atom((get) => {
+      const node = get(qr).item.find(({ linkId }) => linkId === "3")!;
+      // @ts-expect-error path is not a valid property
+      node.__path__ = { path: "QuestionnaireResponse.item", parentResNode: qr };
+      return node;
+    });
+    const testExpressionAtom = fhirPathAtom(
+      item,
+      "%context",
+      { resource: qr },
+      model
+    );
+    const store = createStore();
+    const expressionResult = store.get(testExpressionAtom);
+    expect(expressionResult).toStrictEqual([
+      initialResource.item.find(({ linkId }) => linkId === "3"),
+    ]);
+  });
+  test("evaluate %context path when item is passed", () => {
+    const qr = atom(initialResource);
+    const item = atom((get) => {
+      const node = get(qr).item.find(({ linkId }) => linkId === "3")!;
+      // @ts-expect-error path is not a valid property
+      node.__path__ = { path: "QuestionnaireResponse.item", parentResNode: qr };
+      return node;
+    });
+    const testExpressionAtom = fhirPathAtom(
+      item,
+      "%context.answer.value",
+      { resource: qr },
+      model
+    );
+    const store = createStore();
+    const expressionResult = store.get(testExpressionAtom);
+    expect(expressionResult).toStrictEqual([68.5]);
   });
 });
