@@ -30,9 +30,12 @@ export default function fhirPathAtom<
   options?: OptionVariants | undefined
 ): Atom<TResult> {
   const expressionAtom = atom((get) => {
+    const contextWithFhirData = fhirData
+      ? { ...context, context: fhirData }
+      : context;
     const contextProxy: ContextAtoms | undefined =
-      context != undefined
-        ? new Proxy(context, createVarsProxyHandler(get))
+      contextWithFhirData != undefined
+        ? new Proxy(contextWithFhirData, createVarsProxyHandler(get))
         : undefined;
     const result = evaluate(
       fhirData ? get(fhirData) : undefined,
