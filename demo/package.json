@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "fhirpath": "^3.17.0",
+    "fhirpath": "github:Tiro-health/fhirpath.js#541ff49d1efc5679c52f8db4c88d41b8ea0cd288",
     "fhirpath-jotai": "link:..",
     "jotai": "^2.11.0",
     "jotai-devtools": "^0.10.1",
