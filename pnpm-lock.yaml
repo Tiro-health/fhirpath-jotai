@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       fhirpath:
-        specifier: github:Tiro-health/fhirpath.js#541ff49d1efc5679c52f8db4c88d41b8ea0cd288
-        version: https://codeload.github.com/Tiro-health/fhirpath.js/tar.gz/541ff49d1efc5679c52f8db4c88d41b8ea0cd288
+        specifier: ^4.0.0
+        version: 4.8.2
       jotai:
         specifier: '>=2.0.0'
         version: 2.10.4(@types/react@18.3.17)(react@18.3.1)
@@ -1193,9 +1193,8 @@ packages:
   fastq@1.17.1:
     resolution: {integrity: sha512-sRVD3lWVIXWg6By68ZN7vho9a1pQcN/WBFaAAsDDFzlJjvoGx0P8z7V1t72grFJfJhu3YPZBuu25f7Kaw2jN1w==}
 
-  fhirpath@https://codeload.github.com/Tiro-health/fhirpath.js/tar.gz/541ff49d1efc5679c52f8db4c88d41b8ea0cd288:
-    resolution: {tarball: https://codeload.github.com/Tiro-health/fhirpath.js/tar.gz/541ff49d1efc5679c52f8db4c88d41b8ea0cd288}
-    version: 4.8.2
+  fhirpath@4.8.2:
+    resolution: {integrity: sha512-69Oq3alLJtnnOda7hk9X46eaiV9ml1r9f/e2mVMybniNjYuxEL1vD0u2QUsOLAMNUz2rv/wF2gw7vX8MDCZqSg==}
     engines: {node: '>=8.9.0'}
     hasBin: true
 
@@ -1375,10 +1374,6 @@ packages:
 
   js-yaml@3.14.1:
     resolution: {integrity: sha512-okMH7OXXJ7YrN9Ok3/SXrnu4iX9yOk+25nqX4imS2npuvTYDmo/QEZoqwZkYaIDk3jVvBOTOIEgEhaLOynBS9g==}
-    hasBin: true
-
-  js-yaml@4.1.0:
-    resolution: {integrity: sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==}
     hasBin: true
 
   js-yaml@4.1.1:
@@ -2433,7 +2428,7 @@ snapshots:
       globals: 14.0.0
       ignore: 5.3.2
       import-fresh: 3.3.0
-      js-yaml: 4.1.0
+      js-yaml: 4.1.1
       minimatch: 3.1.2
       strip-json-comments: 3.1.1
     transitivePeerDependencies:
@@ -3215,7 +3210,7 @@ snapshots:
     dependencies:
       reusify: 1.0.4
 
-  fhirpath@https://codeload.github.com/Tiro-health/fhirpath.js/tar.gz/541ff49d1efc5679c52f8db4c88d41b8ea0cd288:
+  fhirpath@4.8.2:
     dependencies:
       '@lhncbc/ucum-lhc': 5.0.4
       '@loxjs/url-join': 1.0.2
@@ -3372,10 +3367,6 @@ snapshots:
     dependencies:
       argparse: 1.0.10
       esprima: 4.0.1
-
-  js-yaml@4.1.0:
-    dependencies:
-      argparse: 2.0.1
 
   js-yaml@4.1.1:
     dependencies:
