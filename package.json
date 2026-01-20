@@ -19,6 +19,7 @@
     "jotai": ">=2.0.0"
   },
   "devDependencies": {
+    "fhirpath": "github:Tiro-health/fhirpath.js#541ff49d1efc5679c52f8db4c88d41b8ea0cd288",
     "@changesets/cli": "^2.27.11",
     "@eslint/js": "^9.17.0",
     "@types/node": "^22.10.2",
