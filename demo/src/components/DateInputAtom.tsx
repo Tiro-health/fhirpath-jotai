@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { PrimitiveAtom } from "jotai";
 
-export default function NumberInputAtom<TValue extends number | undefined>({
+export default function DateInputAtom<TValue extends string | undefined>({
   label,
   atom,
 }: {
@@ -13,11 +13,10 @@ export default function NumberInputAtom<TValue extends number | undefined>({
     <div className="flex flex-col">
       <label className="text-sm font-medium text-gray-700">{label}</label>
       <input
-        type="number"
-        step="any"
+        type="date"
         className="mt-1 p-2 border rounded-md"
-        value={value}
-        onChange={(e) => setValue(e.target.valueAsNumber as TValue)}
+        value={value ?? ""}
+        onChange={(e) => setValue(e.target.value as TValue)}
       />
     </div>
   );

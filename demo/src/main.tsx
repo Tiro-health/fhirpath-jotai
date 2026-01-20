@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router";
 
 import { BMICalculator } from "./pages/BMICalculator";
 import { LBMCalculator } from "./pages/LBMCalculator";
+import { PSADTCalculator } from "./pages/PSADTCalculator";
 import BMIQuestionnairePage from "./pages/BMIQuestionnaire";
 import TNMQuestionnairePage from "./pages/TNMQuestionnaire";
 import { Home } from "./pages/Home";
@@ -20,6 +21,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route index element={<Home />} />
           <Route path="bmi" element={<BMICalculator />} />
           <Route path="lbm" element={<LBMCalculator />} />
+          <Route path="psadt" element={<PSADTCalculator />} />
           <Route path="bmi-questionnaire" element={<BMIQuestionnairePage />} />
           <Route path="tnm-questionnaire" element={<TNMQuestionnairePage />} />
           <Route path="sescd-questionnaire" element={<SESCDQuestionnaire />} />

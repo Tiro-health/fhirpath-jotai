@@ -5,6 +5,10 @@ export default [
     href: "/lbm",
   },
   {
+    name: "PSADT-calculator",
+    href: "/psadt",
+  },
+  {
     name: "BMI-Questionnaire",
     href: "/bmi-questionnaire",
   },
